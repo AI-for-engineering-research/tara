@@ -1,8 +1,8 @@
 /* Light purple theme with 3:4 portrait support */
 :root {
-  --bg: #f3e9ff;       /* very light purple background */
-  --fg: #2b1a3a;       /* dark plum text for readability */
-  --accent: #a36aff;    /* soft purple accent */
+  --bg: #faf8ff;       /* very very light purple background */
+  --fg: #333333;       /* dark grey text */
+  --accent: #b8a8f0;    /* soft purple accent */
 }
 html, body { margin: 0; padding: 0; font-family: Arial, sans-serif; color: var(--fg); background: var(--bg); }
 header { padding: 1rem; background: white; border-bottom: 1px solid #ddd; }
