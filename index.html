@@ -6,13 +6,6 @@
   <title>Tara Housen | Portfolio</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    @keyframes contrail-anim {
-      0% { stroke-dashoffset: 100; }
-      100% { stroke-dashoffset: 0; }
-    }
-    .contrail-line {
-      animation: contrail-anim 4s linear infinite;
-    }
   </style>
 </head>
 <body>
@@ -32,14 +25,41 @@
 
   <main class="container">
     <section id="project-hero" class="section">
-      <!-- Contrail aesthetic -->
-      <svg width="100%" height="30" viewBox="0 0 800 30" style="margin-bottom: 16px;" preserveAspectRatio="none">
+      <!-- Contrail aesthetic: plane with trail -->
+      <svg width="100%" height="40" viewBox="0 0 800 40" style="margin-bottom: 16px;" preserveAspectRatio="none">
         <defs>
-          <marker id="plane" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-            <circle cx="5" cy="5" r="3" fill="#b8a8f0"/>
-          </marker>
+          <style>
+            @keyframes plane-move {
+              0% { transform: translateX(-100px); }
+              100% { transform: translateX(800px); }
+            }
+            @keyframes trail-fade {
+              0% { opacity: 0.8; }
+              50% { opacity: 0.4; }
+              100% { opacity: 0; }
+            }
+            .plane { animation: plane-move 5s linear infinite; }
+            .trail { animation: trail-fade 2s ease-out; }
+          </style>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
         </defs>
-        <path class="contrail-line" d="M 0 15 Q 200 5 400 15 T 800 15" stroke="#b8a8f0" stroke-width="2" fill="none" stroke-dasharray="100" stroke-linecap="round" opacity="0.7"/>
+        <!-- Animated plane + trail -->
+        <g class="plane">
+          <!-- Trail behind plane -->
+          <path class="trail" d="M -20 20 Q -40 15 -60 20 Q -80 25 -100 20" stroke="#b8a8f0" stroke-width="1.5" fill="none" opacity="0.6" filter="url(#glow)"/>
+          <!-- Plane -->
+          <g>
+            <polygon points="0,18 8,22 0,26 -8,22" fill="#7c3aed" stroke="#333" stroke-width="0.5"/>
+            <line x1="-2" y1="22" x2="-8" y2="22" stroke="#333" stroke-width="0.5"/>
+            <line x1="2" y1="22" x2="8" y2="22" stroke="#333" stroke-width="0.5"/>
+          </g>
+        </g>
       </svg>
 
       <h1>Cost Benefit Analysis of Low Aromatic Fuels</h1>
