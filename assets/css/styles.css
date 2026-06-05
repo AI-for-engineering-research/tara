@@ -1,0 +1,28 @@
+/* Basic portfolio styles */
+:root{
+  --bg: #0b1220;
+  --card: #141a2a;
+  --text: #e9e8f1;
+  --muted:#aab4c5;
+  --accent:#6cc4ff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial}
+.container{max-width:980px;margin:0 auto;padding:0 1rem}
+.site-header{background:linear-gradient(135deg,#0f1d32 0%, #16223a 60%, #0f1d32 100%);color:white;padding:28px 0}
+.header-inner{display:flex;flex-direction:column;gap:6px}
+.name{margin:0;font-size:2.2rem}
+.tagline{color:var(--muted);margin:0}
+.main-nav ul{list-style:none;padding:0;margin:12px 0 0 0;display:flex;gap:16px}
+.main-nav a{color:white;text-decoration:none;padding:6px 10px;border-radius:6px}
+.main-nav a:hover{background:rgba(255,255,255,0.15)}
+.section{padding:48px 0;border-bottom:1px solid rgba(255,255,255,0.08)}
+.section h2{margin-top:0;font-size:1.6rem}
+.edu-item{margin-bottom:8px}
+.projects{list-style:none;padding-left:0}
+a{color:#9bd8ff}
+footer{text-align:center;color:var(--muted);padding:40px 0 60px}
+@media (max-width: 700px){
+  .name{font-size:1.6rem}
+  .main-nav{order:3}
+}
