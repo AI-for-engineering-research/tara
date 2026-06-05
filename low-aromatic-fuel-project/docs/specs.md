@@ -1,0 +1,4 @@
+# Project Specs
+
+- Objective
+- Requirements

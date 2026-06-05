@@ -1,0 +1,12 @@
+/* Starter styles */
+:root {
+  --bg: #f6f6f6;
+  --fg: #222;
+  --accent: #007acc;
+}
+html, body { margin: 0; padding: 0; font-family: Arial, sans-serif; color: var(--fg); background: var(--bg); }
+header { padding: 1rem; background: white; border-bottom: 1px solid #ddd; }
+header h1 { margin: 0; font-size: 1.4rem; }
+nav a { margin-right: 0.75rem; color: #333; text-decoration: none; }
+main { padding: 2rem; }
+footer { padding: 1rem; text-align: center; font-size: 0.9rem; color: #666; }
