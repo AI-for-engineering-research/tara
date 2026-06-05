@@ -1,8 +1,8 @@
-/* Starter styles */
+/* Light purple theme with 3:4 portrait support */
 :root {
-  --bg: #f6f6f6;
-  --fg: #222;
-  --accent: #007acc;
+  --bg: #f3e9ff;       /* very light purple background */
+  --fg: #2b1a3a;       /* dark plum text for readability */
+  --accent: #a36aff;    /* soft purple accent */
 }
 html, body { margin: 0; padding: 0; font-family: Arial, sans-serif; color: var(--fg); background: var(--bg); }
 header { padding: 1rem; background: white; border-bottom: 1px solid #ddd; }
@@ -10,3 +10,23 @@ header h1 { margin: 0; font-size: 1.4rem; }
 nav a { margin-right: 0.75rem; color: #333; text-decoration: none; }
 main { padding: 2rem; }
 footer { padding: 1rem; text-align: center; font-size: 0.9rem; color: #666; }
+
+/* About image wrapper: 3:4 aspect ratio and sizing */
+.about-photo-wrapper {
+  float: left;
+  width: 40%;
+  max-width: 420px;
+  margin: 0 20px 12px 0;
+}
+.about-photo-wrapper img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  display: block;
+  border-radius: 6px;
+}
+@media (max-width: 800px) {
+  .about-photo-wrapper { float: none; width: 100%; max-width: 100%; margin: 0 0 12px 0; }
+  .about-photo-wrapper img { height: auto; }
+}
