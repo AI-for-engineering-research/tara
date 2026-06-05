@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Tara Housen | Portfolio</title>
   <link rel="stylesheet" href="assets/css/styles.css" />
+  <style>
+    @keyframes contrail-anim {
+      0% { stroke-dashoffset: 100; }
+      100% { stroke-dashoffset: 0; }
+    }
+    .contrail-line {
+      animation: contrail-anim 4s linear infinite;
+    }
+  </style>
 </head>
 <body>
   <header class="site-header" aria-label="Site header">
@@ -23,6 +32,16 @@
 
   <main class="container">
     <section id="project-hero" class="section">
+      <!-- Contrail aesthetic -->
+      <svg width="100%" height="30" viewBox="0 0 800 30" style="margin-bottom: 16px;" preserveAspectRatio="none">
+        <defs>
+          <marker id="plane" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+            <circle cx="5" cy="5" r="3" fill="#b8a8f0"/>
+          </marker>
+        </defs>
+        <path class="contrail-line" d="M 0 15 Q 200 5 400 15 T 800 15" stroke="#b8a8f0" stroke-width="2" fill="none" stroke-dasharray="100" stroke-linecap="round" opacity="0.7"/>
+      </svg>
+
       <h1>Cost Benefit Analysis of Low Aromatic Fuels</h1>
       
       <div class="problem-opportunity" style="display: flex; gap: 40px; margin: 24px 0;">
@@ -47,28 +66,6 @@
       <div style="margin: 24px 0; padding: 12px; background: rgba(184, 168, 240, 0.2); border-radius: 6px;">
         <p><strong>Research goal:</strong> Cost benefit analysis needed to evaluate advantages and trade-offs of opportunity.</p>
       </div>
-
-      <!-- Jet Fuel Composition Diagram -->
-      <div style="margin: 24px 0;">
-        <h3>Jet Fuel Composition</h3>
-        <svg width="400" height="250" viewBox="0 0 400 250" style="border: 1px solid #ddd; border-radius: 6px;">
-          <rect width="400" height="250" fill="#f9f7ff"/>
-          <text x="200" y="30" text-anchor="middle" font-size="16" font-weight="bold" fill="#333">Jet Fuel (Kerosene) Composition</text>
-          
-          <!-- Pie chart -->
-          <circle cx="120" cy="130" r="60" fill="#a78bfa" stroke="#333" stroke-width="2"/>
-          <circle cx="120" cy="130" r="60" fill="#d4c5f9" stroke="#333" stroke-width="2" clip-path="url(#slice1)"/>
-          
-          <rect x="200" y="80" width="160" height="30" fill="#a78bfa" stroke="#333" stroke-width="1" rx="4"/>
-          <text x="280" y="102" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Aromatics ~20-25%</text>
-          
-          <rect x="200" y="120" width="160" height="30" fill="#d4c5f9" stroke="#333" stroke-width="1" rx="4"/>
-          <text x="280" y="142" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Paraffins ~45-50%</text>
-          
-          <rect x="200" y="160" width="160" height="30" fill="#e8deff" stroke="#333" stroke-width="1" rx="4"/>
-          <text x="280" y="182" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Naphthenes ~25-30%</text>
-        </svg>
-      </div>
     </section>
 
     <section id="aromatics-details" class="section">
@@ -77,93 +74,12 @@
       <!-- Hydrotreatment Diagram -->
       <h3>1. Hydrotreatment</h3>
       <p>Catalytic process to remove aromatics using hydrogen at elevated temperature and pressure.</p>
-      <svg width="500" height="200" viewBox="0 0 500 200" style="border: 1px solid #ddd; border-radius: 6px; margin: 12px 0;">
-        <rect width="500" height="200" fill="#f9f7ff"/>
-        
-        <!-- Feed -->
-        <rect x="30" y="80" width="80" height="60" rx="8" fill="#a78bfa" stroke="#333" stroke-width="2"/>
-        <text x="70" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Kerosene</text>
-        <text x="70" y="125" text-anchor="middle" font-size="10" fill="white">Feed</text>
-        
-        <!-- Arrow 1 -->
-        <path d="M 110 110 L 140 110" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-        <text x="125" y="105" text-anchor="middle" font-size="9" fill="#333">+H₂</text>
-        
-        <!-- Reactor -->
-        <rect x="140" y="60" width="100" height="100" rx="8" fill="#d4c5f9" stroke="#333" stroke-width="2"/>
-        <text x="190" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Hydrotreating</text>
-        <text x="190" y="115" text-anchor="middle" font-size="10" fill="#333">Reactor</text>
-        <text x="190" y="130" text-anchor="middle" font-size="9" fill="#666">(Temp, Press, Cat)</text>
-        
-        <!-- Arrow 2 -->
-        <path d="M 240 110 L 270 110" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-        
-        <!-- Product -->
-        <rect x="270" y="80" width="80" height="60" rx="8" fill="#7c3aed" stroke="#333" stroke-width="2"/>
-        <text x="310" y="110" text-anchor="middle" font-size="12" font-weight="bold" fill="white">Low Aromatic</text>
-        <text x="310" y="125" text-anchor="middle" font-size="10" fill="white">Kerosene</text>
-        
-        <!-- Arrow 3 -->
-        <path d="M 350 110 L 380 110" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
-        
-        <!-- Byproduct -->
-        <circle cx="420" cy="110" r="20" fill="#fbbf24" stroke="#333" stroke-width="2"/>
-        <text x="420" y="115" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">H₂S</text>
-        
-        <defs>
-          <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
-          </marker>
-        </defs>
-      </svg>
+      <img src="assets/images/hydrotreatment.png" alt="Hydrotreatment diagram" style="width:500px;height:auto;margin:12px 0;border-radius:6px;"/>
 
       <!-- Solvent Extraction Diagram -->
       <h3>2. Solvent Extraction</h3>
       <p>Selective dissolution of aromatics using organic solvents; aromatics preferentially dissolve.</p>
-      <svg width="500" height="200" viewBox="0 0 500 200" style="border: 1px solid #ddd; border-radius: 6px; margin: 12px 0;">
-        <rect width="500" height="200" fill="#f9f7ff"/>
-        
-        <!-- Feed -->
-        <rect x="20" y="80" width="70" height="60" rx="8" fill="#a78bfa" stroke="#333" stroke-width="2"/>
-        <text x="55" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Kerosene</text>
-        <text x="55" y="120" text-anchor="middle" font-size="9" fill="white">Feed</text>
-        
-        <!-- Plus -->
-        <text x="100" y="115" font-size="20" fill="#333" font-weight="bold">+</text>
-        
-        <!-- Solvent -->
-        <rect x="115" y="80" width="70" height="60" rx="8" fill="#ec4899" stroke="#333" stroke-width="2"/>
-        <text x="150" y="105" text-anchor="middle" font-size="11" font-weight="bold" fill="white">Solvent</text>
-        <text x="150" y="120" text-anchor="middle" font-size="9" fill="white">(NMP, etc)</text>
-        
-        <!-- Arrow -->
-        <path d="M 190 110 L 220 110" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead2)"/>
-        
-        <!-- Extraction -->
-        <rect x="220" y="60" width="90" height="100" rx="8" fill="#d4c5f9" stroke="#333" stroke-width="2"/>
-        <text x="265" y="100" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">Extraction</text>
-        <text x="265" y="115" text-anchor="middle" font-size="10" fill="#333">Separation</text>
-        <text x="265" y="130" text-anchor="middle" font-size="9" fill="#666">(mixing, settling)</text>
-        
-        <!-- Arrow -->
-        <path d="M 310 110 L 340 110" stroke="#333" stroke-width="2" fill="none" marker-end="url(#arrowhead2)"/>
-        
-        <!-- Product 1 -->
-        <rect x="340" y="50" width="75" height="50" rx="8" fill="#7c3aed" stroke="#333" stroke-width="2"/>
-        <text x="377" y="73" text-anchor="middle" font-size="10" font-weight="bold" fill="white">Low Aromatic</text>
-        <text x="377" y="85" text-anchor="middle" font-size="9" fill="white">Kerosene</text>
-        
-        <!-- Product 2 -->
-        <rect x="340" y="110" width="75" height="50" rx="8" fill="#fbbf24" stroke="#333" stroke-width="2"/>
-        <text x="377" y="133" text-anchor="middle" font-size="10" font-weight="bold" fill="#333">Aromatic</text>
-        <text x="377" y="145" text-anchor="middle" font-size="9" fill="#333">Extract</text>
-        
-        <defs>
-          <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
-          </marker>
-        </defs>
-      </svg>
+      <img src="assets/images/solvent_extraction.png" alt="Solvent extraction diagram" style="width:500px;height:auto;margin:12px 0;border-radius:6px;"/>
     </section>
 
     <section id="about" class="section">
