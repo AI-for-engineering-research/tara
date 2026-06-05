@@ -11,62 +11,25 @@
     <div class="container header-inner">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
         <div style="flex: 1;">
-          <h1 class="name" style="margin-bottom: 4px;">Tara Housen</h1>
-          <p class="tagline" style="margin: 0; font-size: 13px; color: #666;">Public portfolio • MIT Aeronautics and Astronautics</p>
+          <h1 class="name" style="margin-bottom: 4px; font-size: 28px;">Tara Housen</h1>
+          <p class="tagline" style="margin: 0; font-size: 16px; color: #666;">Public portfolio • MIT Aeronautics and Astronautics</p>
         </div>
         <nav class="main-nav" aria-label="Main" style="flex: 1; text-align: right;">
           <ul style="justify-content: flex-end;">
-            <li><a href="#project-hero">Overview</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li><a href="#project-hero" style="font-size: 15px;">Overview</a></li>
+            <li><a href="#about" style="font-size: 15px;">About</a></li>
+            <li><a href="#contact" style="font-size: 15px;">Contact</a></li>
           </ul>
         </nav>
       </div>
       <div style="border-top: 2px solid rgba(184, 168, 240, 0.4); padding-top: 16px; margin-top: 16px;">
-        <h2 style="margin: 0; font-size: 32px; color: #333; font-weight: 600; letter-spacing: -0.5px;">Cost Benefit Analysis of Low Aromatic Fuels</h2>
+        <h2 style="margin: 0; font-size: 40px; color: #333; font-weight: 600; letter-spacing: -0.5px;">Cost Benefit Analysis of Low Aromatic Fuels</h2>
       </div>
     </div>
   </header>
 
   <main class="container">
     <section id="project-hero" class="section">
-      <!-- Contrail aesthetic: plane with trail -->
-      <svg width="100%" height="40" viewBox="0 0 800 40" style="margin-bottom: 16px;" preserveAspectRatio="none">
-        <defs>
-          <style>
-            @keyframes plane-move {
-              0% { transform: translateX(-100px); }
-              100% { transform: translateX(800px); }
-            }
-            @keyframes trail-fade {
-              0% { opacity: 0.8; }
-              50% { opacity: 0.4; }
-              100% { opacity: 0; }
-            }
-            .plane { animation: plane-move 5s linear infinite; }
-            .trail { animation: trail-fade 2s ease-out; }
-          </style>
-          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-            <feGaussianBlur stdDeviation="1" result="coloredBlur"/>
-            <feMerge>
-              <feMergeNode in="coloredBlur"/>
-              <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-          </filter>
-        </defs>
-        <!-- Animated plane + trail -->
-        <g class="plane">
-          <!-- Trail behind plane -->
-          <path class="trail" d="M -20 20 Q -40 15 -60 20 Q -80 25 -100 20" stroke="#b8a8f0" stroke-width="1.5" fill="none" opacity="0.6" filter="url(#glow)"/>
-          <!-- Plane -->
-          <g>
-            <polygon points="0,18 8,22 0,26 -8,22" fill="#7c3aed" stroke="#333" stroke-width="0.5"/>
-            <line x1="-2" y1="22" x2="-8" y2="22" stroke="#333" stroke-width="0.5"/>
-            <line x1="2" y1="22" x2="8" y2="22" stroke="#333" stroke-width="0.5"/>
-          </g>
-        </g>
-      </svg>
-      
       <div class="problem-opportunity" style="display: flex; gap: 40px; margin: 24px 0;">
         <!-- Problem Section -->
         <div style="flex: 1;">
@@ -94,15 +57,28 @@
     <section id="aromatics-details" class="section">
       <h2>Aromatics Removal Techniques</h2>
       
-      <!-- Hydrotreatment Diagram -->
-      <h3>1. Hydrotreatment</h3>
-      <p>Catalytic process to remove aromatics using hydrogen at elevated temperature and pressure.</p>
-      <img src="assets/images/hydrotreatment.png" alt="Hydrotreatment diagram" style="width:500px;height:auto;margin:12px 0;border-radius:6px;"/>
-
-      <!-- Solvent Extraction Diagram -->
-      <h3>2. Solvent Extraction</h3>
-      <p>Selective dissolution of aromatics using organic solvents; aromatics preferentially dissolve.</p>
-      <img src="assets/images/solvent_extraction.png" alt="Solvent extraction diagram" style="width:500px;height:auto;margin:12px 0;border-radius:6px;"/>
+      <!-- Side-by-side diagrams with boxes -->
+      <div style="display: flex; gap: 32px; margin: 24px 0;">
+        <!-- Hydrotreatment -->
+        <div style="flex: 1; border: 2px solid #b8a8f0; border-radius: 12px; padding: 20px; background: rgba(248, 245, 255, 0.5);">
+          <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #7c3aed; color: white; border-radius: 50%; font-weight: 700; font-size: 18px; margin-right: 12px;">①</span>
+            <h3 style="margin: 0; color: #333; font-size: 20px;">Hydrotreatment</h3>
+          </div>
+          <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Catalytic process to remove aromatics using hydrogen at elevated temperature and pressure.</p>
+          <img src="assets/images/hydrotreatment.png" alt="Hydrotreatment diagram" style="width:100%;height:auto;border-radius:8px;"/>
+        </div>
+        
+        <!-- Solvent Extraction -->
+        <div style="flex: 1; border: 2px solid #b8a8f0; border-radius: 12px; padding: 20px; background: rgba(248, 245, 255, 0.5);">
+          <div style="display: flex; align-items: center; margin-bottom: 12px;">
+            <span style="display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; background: #7c3aed; color: white; border-radius: 50%; font-weight: 700; font-size: 18px; margin-right: 12px;">②</span>
+            <h3 style="margin: 0; color: #333; font-size: 20px;">Solvent Extraction</h3>
+          </div>
+          <p style="font-size: 13px; color: #666; margin-bottom: 12px;">Selective dissolution of aromatics using organic solvents; aromatics preferentially dissolve.</p>
+          <img src="assets/images/solvent_extraction.png" alt="Solvent extraction diagram" style="width:100%;height:auto;border-radius:8px;"/>
+        </div>
+      </div>
     </section>
 
     <section id="about" class="section">
