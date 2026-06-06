@@ -26,7 +26,7 @@ header h1 { margin: 0; font-size: 1.4rem; }
 /* Modern type + section separation */
 .section { background: rgba(255,255,255,0.75); backdrop-filter: blur(6px); border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 22px; margin: 18px 0; }
 .section h1, .section h2 { letter-spacing: -0.4px; }
-hr.section-divider { border: 0; height: 1px; background: rgba(0,0,0,0.12); margin: 28px 0; }
+hr.section-divider { border: 0; height: 1px; background: rgba(0,0,0,0.12); margin: 44px 0; }
 
 /* Research cards */
 .research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
@@ -48,7 +48,16 @@ hr.section-divider { border: 0; height: 1px; background: rgba(0,0,0,0.12); margi
 .main-nav li { display: inline; }
 header a { margin-right: 0; color: var(--link); text-decoration: none; font-weight: 600; }
 header a:hover { color: var(--linkHover); text-decoration: underline; }
-main { padding: 2rem; }
+main { padding: 3.25rem 2rem; }
+
+/* Make the page breathe (more vertical rhythm) */
+.section { margin: 26px 0; padding: 28px; }
+.section p { line-height: 1.75; }
+.section ul { line-height: 1.8; }
+.section h1 { margin-top: 0; margin-bottom: 12px; }
+.section h2 { margin-top: 0; margin-bottom: 12px; }
+.section h3 { margin-top: 18px; margin-bottom: 10px; }
+
 footer { padding: 1rem; text-align: center; font-size: 0.9rem; color: #666; }
 
 /* About image wrapper: 3:4 aspect ratio and sizing */
