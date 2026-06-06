@@ -9,7 +9,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  font-family: Arial, sans-serif;
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--fg);
   /* Sky gradient + subtle cloud pattern */
   background-color: #cfefff;
@@ -22,6 +22,21 @@ html, body {
 }
 header { padding: 1rem; background: rgba(255,255,255,0.78); backdrop-filter: blur(6px); border-bottom: 1px solid rgba(0,0,0,0.08); }
 header h1 { margin: 0; font-size: 1.4rem; }
+
+/* Modern type + section separation */
+.section { background: rgba(255,255,255,0.75); backdrop-filter: blur(6px); border: 1px solid rgba(0,0,0,0.06); border-radius: 14px; padding: 22px; margin: 18px 0; }
+.section h1, .section h2 { letter-spacing: -0.4px; }
+hr.section-divider { border: 0; height: 1px; background: rgba(0,0,0,0.12); margin: 28px 0; }
+
+/* Research cards */
+.research-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+@media (max-width: 900px) { .research-grid { grid-template-columns: 1fr; } }
+.research-card { background: rgba(255,255,255,0.72); border: 1px solid rgba(29,78,216,0.18); border-radius: 14px; padding: 18px; }
+.research-card h3 { margin-top: 0; }
+.badge { display: inline-flex; align-items: center; gap: 10px; }
+.badge .icon { width: 34px; height: 34px; border-radius: 10px; display: inline-flex; align-items: center; justify-content: center; background: rgba(29,78,216,0.10); border: 1px solid rgba(29,78,216,0.25); }
+.badge .icon svg { width: 20px; height: 20px; }
+
 /* Navigation: horizontal, no bullets */
 .main-nav ul {
   list-style: none;
