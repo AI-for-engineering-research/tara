@@ -2,6 +2,8 @@
 :root {
   --fg: #2f2f2f;       /* dark grey text */
   --accent: #1d4ed8;   /* sky-blue accent */
+  --link: #1d4ed8;
+  --linkHover: #1e40af;
 }
 
 html, body {
@@ -29,7 +31,8 @@ header h1 { margin: 0; font-size: 1.4rem; }
   padding: 0;
 }
 .main-nav li { display: inline; }
-header a { margin-right: 0; }
+header a { margin-right: 0; color: var(--link); text-decoration: none; font-weight: 600; }
+header a:hover { color: var(--linkHover); text-decoration: underline; }
 main { padding: 2rem; }
 footer { padding: 1rem; text-align: center; font-size: 0.9rem; color: #666; }
 
