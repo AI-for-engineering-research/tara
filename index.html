@@ -7,6 +7,7 @@
   <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body>
+
   <header class="site-header" aria-label="Site header">
     <div class="container header-inner">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
@@ -15,46 +16,92 @@
           <p class="tagline" style="margin: 0; font-size: 16px; color: #666;">Public portfolio • MIT Aeronautics and Astronautics</p>
         </div>
         <nav class="main-nav" aria-label="Main" style="flex: 1; text-align: right;">
-          <ul style="justify-content: flex-end;">
+          <ul style="justify-content: flex-end; align-items: center;">
             <li><a href="#project-hero" style="font-size: 15px;">Overview</a></li>
             <li><a href="#about" style="font-size: 15px;">About</a></li>
             <li><a href="#contact" style="font-size: 15px;">Contact</a></li>
+            <li>
+              <a class="social-icon" href="https://www.linkedin.com/in/tarahousen/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.476-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zM6.814 20.452H3.86V9h2.954v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.727v20.545C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.273V1.727C24 .774 23.2 0 22.222 0z"/>
+                </svg>
+              </a>
+            </li>
           </ul>
         </nav>
       </div>
-      <!-- Title moved into Research section below -->
     </div>
   </header>
 
+  <section class="hero-image-grid" aria-label="Featured images">
+    <div class="hero-grid-inner">
+      <img src="assets/images/hero-grid/Contrail-Management-Roadmap-iStock-2151473346.jpg" alt="Featured image 2" loading="lazy" />
+      <img src="assets/images/hero-grid/asm_imgs12.jpg" alt="Featured image 1" loading="lazy" />
+      <img src="assets/images/hero-grid/News---what-causes-contrails----410544.webp" alt="Featured image 3" loading="lazy" />
+      <img src="assets/images/hero-grid/Sustainable-Aviation-Fuel-SAF.jpg.webp" alt="Featured image 4" loading="lazy" />
+    </div>
+  </section>
+
   <main class="container">
     <section id="project-hero" class="section">
-      <div style="display:flex; align-items: baseline; justify-content: space-between; gap: 18px; flex-wrap: wrap;">
+      <div style="display:flex; align-items: baseline; justify-content: space-between; gap: 18px; flex-wrap: wrap; margin-bottom: 18px;">
         <h2 style="margin: 0; font-size: 22px; color: #1f2937; font-weight: 700; letter-spacing: -0.3px;">Research</h2>
       </div>
 
-      <h1 style="margin: 10px 0 0 0; font-size: 26px; font-weight: 650; letter-spacing: -0.5px;">Cost benefit analysis of low aromatic fuels</h1>
+      <h1 style="margin: 28px 0 0 0; font-size: 26px; font-weight: 650; letter-spacing: -0.5px;">Cost benefit analysis of low aromatic jet fuel</h1>
 
-      <div class="research-grid" style="margin-top: 18px;">
-        <div class="research-card">
+      <div class="research-grid" style="margin-top: 36px;">
+        <div class="research-card problem-fullbleed">
           <div class="badge">
             <span class="icon" aria-hidden="true" style="font-size:18px; color:#1d4ed8;">⚠️</span>
             <h3 style="margin:0;">Problem</h3>
           </div>
 
-          <div style="display:flex; gap: 14px; align-items: flex-start; margin-top: 10px;">
-            <div style="flex: 1;">
+          <div style="display:grid; grid-template-columns: 1fr auto 1.15fr; gap: 18px; align-items: start; margin-top: 20px;">
+            <div style="display:flex; gap: 14px; align-items: flex-start;">
+              <img src="assets/images/aromatic.png" alt="Aromatic structure" style="width:150px;height:auto;opacity:0.85; flex: 0 0 auto;" />
               <p style="margin:0;">Aromatics have higher binding energy between atoms compared to aliphatic compounds. Jet fuel with higher aromatics content has higher soot emissions.</p>
-              <p style="margin: 10px 0 6px 0;">Soot emissions have a variety of impacts:</p>
-              <ul style="margin: 0; padding-left: 18px;">
-                <li>Air quality related health impacts</li>
-                <li>Climate impacts due to direct & indirect radiative forcing via contrails</li>
-              </ul>
             </div>
 
-            <img src="assets/images/aromatic.png" alt="Aromatic structure" style="width:150px;height:auto;opacity:0.85;" />
+            <div style="display:flex; align-items:center; justify-content:center; padding-top: 2px;">
+              <div style="width: 36px; height: 220px; position: relative;">
+                <div style="position:absolute; left: 10px; top: 0; width: 3px; height: 220px; background: rgba(191, 232, 255, 0.95); border-radius: 3px;"></div>
+                <!-- Arrowhead offset from the line -->
+                <div style="position:absolute; left: 20px; top: 6px; width: 0; height: 0; border-top: 7px solid transparent; border-bottom: 7px solid transparent; border-left: 14px solid rgba(191, 232, 255, 0.95);"></div>
+              </div>
+            </div>
+
+            <div style="padding-left: 8px;">
+              <p style="margin: 0 0 10px 0;">Soot emissions have a variety of impacts:</p>
+              <div style="display:flex; gap: 10px; flex-wrap: wrap;">
+                <div style="display:flex; align-items:center; gap:10px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(29,78,216,0.22); background: rgba(255,255,255,0.78);">
+                  <span aria-hidden="true" style="font-size:18px;">🫁</span>
+                  <div style="line-height:1.2;">
+                    <div style="font-weight:800; color:#1f2937;">Air quality</div>
+                    <div style="color:#4b5563; font-size: 13.5px;">health impacts from particulate matter</div>
+                  </div>
+                </div>
+
+                <div style="display:flex; align-items:center; gap:10px; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(29,78,216,0.22); background: rgba(255,255,255,0.78);">
+                  <span aria-hidden="true" style="font-size:18px;">🌍</span>
+                  <div style="line-height:1.2;">
+                    <div style="font-weight:800; color:#1f2937;">Climate</div>
+                    <div style="color:#4b5563; font-size: 13.5px;">direct and indirect radiative forcing via contrails</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-top: 28px; padding: 14px 16px; background: rgba(255,255,255,0.78); border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px;">
+            <div class="contrail-figure" style="max-width:none; margin: 0; outline: none; border-radius: 0; outline-offset: 0;">
+              <img src="assets/images/contrail_formation.png" alt="Contrail formation schematic" style="width:100%; height:auto; display:block;" />
+            </div>
           </div>
         </div>
 
+      </div>
+
+      <div style="margin-top: 24px; display:grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start;">
         <div class="research-card">
           <div class="badge">
             <span class="icon" aria-hidden="true" style="font-size:18px; color:#1d4ed8;">💡</span>
@@ -78,20 +125,22 @@
             <span style="color:#374151;"> refining-driven aromatics reduction can lower soot and downstream climate/health impacts.</span>
           </div>
         </div>
-      </div>
 
-      <div style="margin-top: 18px; padding: 14px 16px; background: rgba(191, 232, 255, 0.72); border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px;">
-        <strong>Research objective:</strong> Conduct cost-benefit analysis of production and utilization of low aromatic jet fuel via refining processes
-      </div>
+        <div>
+          <div style="padding: 14px 16px; background: rgba(191, 232, 255, 0.72); border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px;">
+            <strong>Research objective:</strong> Conduct cost-benefit analysis of production and utilization of low aromatic jet fuel via refining processes
+          </div>
 
-      <div style="margin-top: 14px; padding: 16px; background: rgba(255, 255, 255, 0.78); border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px;">
-        <strong>Scope:</strong>
-        <ul style="margin: 10px 0 0 0; padding-left: 18px;">
-          <li>Consider 2 forms of refining: hydrotreatment and extractive distillation</li>
-          <li>Assess model with 3 different crude oils with various sulfur/aromatics content</li>
-          <li>Evaluate climate and air quality benefits/disbenefits from production and utilization of low-aromatic fuel</li>
-          <li>Conduct sensitivity analysis</li>
-        </ul>
+          <div style="margin-top: 14px; padding: 16px; background: rgba(255, 255, 255, 0.78); border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px;">
+            <strong>Scope:</strong>
+            <ul style="margin: 10px 0 0 0; padding-left: 18px;">
+              <li>Consider 2 forms of refining: hydrotreatment and extractive distillation</li>
+              <li>Assess model with 3 different crude oils with various sulfur/aromatics content</li>
+              <li>Evaluate climate and air quality benefits/disbenefits from production and utilization of low-aromatic fuel</li>
+              <li>Conduct sensitivity analysis</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -101,26 +150,26 @@
       <h2>Weekly updates</h2>
       <a href="weekly-updates/week-1.html" style="display:block; text-decoration:none; color:inherit;">
         <div style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
-          <h3 style="margin:0 0 8px 0;">Week 1</h3>
+          <h3 style="margin:0 0 8px 0;">📝 Week 1</h3>
           <p style="margin:0; color:#4b5563;">Click to view details</p>
         </div>
       </a>
 
-      <div style="margin-top: 14px;">
-        <p style="margin:0; color:#4b5563;">(Week 1 opens in its own page.)</p>
-      </div>
     </section>
+
+    <hr class="section-divider" />
 
     <section id="about" class="section">
       <img src="assets/images/IMG_0625.jpeg" alt="Portrait of Tara Housen" style="width:300px;height:400px;object-fit:cover;float:left;margin:0 20px 10px 0;">
       <h2>About</h2>
       <h3>Background</h3>
       <p>I'm Tara Housen, a Doctoral candidate in Aeronautics and Astronautics at MIT working in the Lab for Aviation and the Environment.</p>
-      <p>I earned my B.S. in Mechanical Engineering at Villanova University and am now at MIT for my Ph.D. in Aeronautics and Astronautics, focused on sustainable aviation fuels and their environmental and economic impacts.</p>
-      <h3>Resume</h3>
-      <p>Download resume: <a href="resume.md" target="_blank" rel="noopener">resume.md</a></p>
+      <p>I'm originally from New Jersey. I earned my B.S. in Mechanical Engineering at Villanova University in 2022. During undergrad I interned at Safran Aerosystems which got me interested in Aerospace. Post-graduation I pursued my Masters in Aerospace Engineering at MIT where I conducted research on direct air capture for atmospheric CO2 removal. Presently, I am pursuing my Phd in Aerospace and conducting research on sustainable drop-in fuels for aviation. My current project is focused low aromatic jet fuel to reduce contrail impacts.</p>
+      <p>Outside of research, I enjoy baking, traveling, and working out.</p>
       <div style="clear: both;"></div>
     </section>
+
+    <hr class="section-divider" />
 
     <section id="contact" class="section">
       <h2>Contact</h2>
@@ -133,6 +182,30 @@
   <footer class="container footer">
      <p>&copy; 2026 Tara Housen. This is a public portfolio.</p>
   </footer>
+
+  <style>
+    /* Problem card: full-bleed (edge-to-edge) */
+    .problem-fullbleed {
+      width: calc(100% - 40px);
+      max-width: calc(100% - 40px);
+      margin: 0 auto;
+    }
+
+    /* Also ensure the single Problem card spans the whole research-grid */
+    .research-grid > .problem-fullbleed {
+      grid-column: 1 / -1;
+    }
+
+    /* Figure wrapper */
+    .contrail-figure {
+      position: relative;
+      max-width: 980px;
+      margin: 0 auto;
+      border-radius: 10px;
+      outline: 2px solid rgba(29, 78, 216, 0.25);
+      outline-offset: 6px;
+    }
+  </style>
 
   <script src="assets/js/scripts.js"></script>
 </body>
