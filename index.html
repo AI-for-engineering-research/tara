@@ -33,12 +33,39 @@
     </div>
   </header>
 
-  <section class="hero-image-grid" aria-label="Featured images">
-    <div class="hero-grid-inner">
-      <img src="assets/images/hero-grid/Contrail-Management-Roadmap-iStock-2151473346.jpg" alt="Featured image 2" loading="lazy" />
-      <img src="assets/images/hero-grid/asm_imgs12.jpg" alt="Featured image 1" loading="lazy" />
-      <img src="assets/images/hero-grid/News---what-causes-contrails----410544.webp" alt="Featured image 3" loading="lazy" />
-      <img src="assets/images/hero-grid/Sustainable-Aviation-Fuel-SAF.jpg.webp" alt="Featured image 4" loading="lazy" />
+  <section class="hero-carousel" aria-label="Featured images">
+    <div class="hero-carousel-track" id="heroCarousel" tabindex="0" aria-label="Swipeable image carousel">
+      <figure class="hero-slide">
+        <img src="assets/images/hero-grid/Contrail-Management-Roadmap-iStock-2151473346.jpg" alt="Contrail management roadmap" loading="eager" />
+      </figure>
+      <figure class="hero-slide">
+        <img src="assets/images/hero-grid/asm_imgs12.jpg" alt="Aircraft contrail image" loading="lazy" />
+      </figure>
+      <figure class="hero-slide">
+        <img src="assets/images/hero-grid/News---what-causes-contrails----410544.webp" alt="What causes contrails" loading="lazy" />
+      </figure>
+      <figure class="hero-slide">
+        <img src="assets/images/hero-grid/Sustainable-Aviation-Fuel-SAF.jpg.webp" alt="Sustainable aviation fuel" loading="lazy" />
+      </figure>
+    </div>
+
+    <div class="hero-overlay" aria-label="Project title">
+      <div class="hero-overlay-inner">
+        <div class="hero-kicker">Research</div>
+        <h2 class="hero-title">Cost-benefit analysis of low aromatic fossil jet fuel</h2>
+        <p class="hero-subtitle">Refining pathways, fuel properties, and nvPM/contrail impacts.</p>
+        <div class="hero-cta-row">
+          <a class="hero-cta" href="#project-hero">Explore the work</a>
+          <a class="hero-cta secondary" href="#research-updates">Research updates</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-carousel-dots" aria-hidden="true">
+      <button class="dot is-active" type="button" aria-label="Slide 1"></button>
+      <button class="dot" type="button" aria-label="Slide 2"></button>
+      <button class="dot" type="button" aria-label="Slide 3"></button>
+      <button class="dot" type="button" aria-label="Slide 4"></button>
     </div>
   </section>
 
@@ -94,7 +121,24 @@
           </div>
           <div style="margin-top: 28px; padding: 14px 16px; background: rgba(255,255,255,0.78); border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px;">
             <div class="contrail-figure" style="max-width:none; margin: 0; outline: none; border-radius: 0; outline-offset: 0;">
-              <img src="assets/images/contrail_formation.png" alt="Contrail formation schematic" style="width:100%; height:auto; display:block;" />
+              <div style="display:flex; align-items:center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin: 4px 0 10px 0;">
+
+                <label class="fuel-toggle" aria-label="Toggle contrail schematic between conventional and low-aromatic fuel">
+                  <span class="fuel-toggle-label">Conventional</span>
+                  <input id="fuelToggle" type="checkbox" />
+                  <span class="fuel-toggle-track" aria-hidden="true"></span>
+                  <span class="fuel-toggle-label">Low-aromatic</span>
+                </label>
+              </div>
+
+              <img
+                id="contrailImg"
+                src="assets/images/contrail_formation_conventional.png"
+                data-conventional="assets/images/contrail_formation_conventional.png"
+                data-low="assets/images/contrail_formation_low_aromatic.png"
+                alt="Contrail formation schematic (toggle between conventional and low-aromatic fuel)"
+                style="width:100%; height:auto; display:block; transition: opacity 180ms ease;"
+              />
             </div>
           </div>
         </div>
@@ -146,12 +190,42 @@
 
     <hr class="section-divider" />
 
+    <section id="research-updates" class="section">
+      <h2>Research updates</h2>
+      <p style="margin: 6px 0 12px 0; color:#4b5563;">Highlights, artifacts, and decisions from the project as it evolves.</p>
+
+      <div style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+        <div style="display:flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <h3 style="margin:0;">Project details</h3>
+          <div style="font-size: 13px; color:#64748b;">New</div>
+        </div>
+        <p style="margin:10px 0 12px 0; color:#4b5563;">Background, objectives, pathways (hydrotreatment + solvent extraction), and methods for the cost–benefit analysis.</p>
+        <a href="project-details.html" style="display:inline-block; padding: 10px 12px; border-radius: 999px; background: rgba(29,78,216,0.10); border: 1px solid rgba(29,78,216,0.22); text-decoration: none; font-weight: 750; color:#1d4ed8;">Open project details</a>
+      </div>
+
+      <div style="margin-top: 14px; border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+        <div style="display:flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <h3 style="margin:0;">Interactive nvPM analysis</h3>
+          <div style="font-size: 13px; color:#64748b;">Updated</div>
+        </div>
+        <p style="margin:10px 0 12px 0; color:#4b5563;">Interactive plots, model diagnostics, fitted-function comparisons, and bootstrap confidence bands for relative nvPM EIn and mBC.</p>
+        <a href="nvpm_analysis_outputs/nvpm_interactive.html" style="display:inline-block; padding: 10px 12px; border-radius: 999px; background: rgba(29,78,216,0.10); border: 1px solid rgba(29,78,216,0.22); text-decoration: none; font-weight: 750; color:#1d4ed8;">Open nvPM analysis</a>
+      </div>
+    </section>
+
+    <hr class="section-divider" />
+
     <section id="weekly-updates" class="section">
-      <h2>Weekly updates</h2>
+      <h2>Weekly journal</h2>
+      <p style="margin: 6px 0 18px 0; color:#4b5563;">Week-by-week notes on building the website + research workflow.</p>
+
       <a href="weekly-updates/week-1.html" style="display:block; text-decoration:none; color:inherit;">
         <div style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
-          <h3 style="margin:0 0 8px 0;">📝 Week 1</h3>
-          <p style="margin:0; color:#4b5563;">Click to view details</p>
+          <div style="display:flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+            <h3 style="margin:0;">📝 Week 1</h3>
+            <div style="font-size: 13px; color:#64748b;">June 8, 2026 • June 11, 2026</div>
+          </div>
+          <p style="margin:10px 0 0 0; color:#4b5563;">Website improvements + early research workflow experiments using pi skills.</p>
         </div>
       </a>
 
@@ -160,6 +234,10 @@
     <hr class="section-divider" />
 
     <section id="about" class="section">
+      <div style="float:right; display:flex; align-items:center; gap:8px; margin:-22px -18px 10px 12px;">
+        <img src="MIT logo.png" alt="MIT logo" style="max-height:62px; width:auto; object-fit:contain; mix-blend-mode:multiply;" />
+        <img src="Nova logo.png" alt="Villanova University logo" style="max-height:58px; width:auto; object-fit:contain; border-radius:6px;" />
+      </div>
       <img src="assets/images/IMG_0625.jpeg" alt="Portrait of Tara Housen" style="width:300px;height:400px;object-fit:cover;float:left;margin:0 20px 10px 0;">
       <h2>About</h2>
       <h3>Background</h3>
@@ -184,6 +262,154 @@
   </footer>
 
   <style>
+    /* --- Hero carousel (swipe) --- */
+    .hero-carousel {
+      width: 100%;
+      height: 64vh;
+      min-height: 420px;
+      max-height: 620px;
+      position: relative;
+      overflow: hidden;
+      background: #0b1220;
+    }
+
+    .hero-carousel-track {
+      height: 100%;
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+
+    .hero-carousel-track::-webkit-scrollbar { display: none; }
+
+    .hero-slide {
+      flex: 0 0 100%;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      scroll-snap-align: start;
+      position: relative;
+    }
+
+    .hero-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: saturate(1.05) contrast(1.02);
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 2;
+      pointer-events: none;
+      padding: 26px 16px 46px;
+      background: linear-gradient(
+        to top,
+        rgba(8, 12, 20, 0.72) 0%,
+        rgba(8, 12, 20, 0.25) 45%,
+        rgba(8, 12, 20, 0.00) 75%
+      );
+    }
+
+    .hero-overlay-inner {
+      width: min(980px, 100%);
+      color: white;
+      text-align: left;
+    }
+
+    .hero-kicker {
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 8px;
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(26px, 3.2vw, 44px);
+      line-height: 1.07;
+      letter-spacing: -0.6px;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    }
+
+    .hero-subtitle {
+      margin: 10px 0 0 0;
+      max-width: 62ch;
+      font-size: clamp(14px, 1.5vw, 18px);
+      opacity: 0.9;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    }
+
+    .hero-cta-row {
+      margin-top: 14px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      pointer-events: auto;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.92);
+      color: #0b1220;
+      text-decoration: none;
+      font-weight: 750;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
+    .hero-cta.secondary {
+      background: rgba(255,255,255,0.12);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.35);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-carousel-dots {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 12px;
+      display: flex;
+      gap: 10px;
+      z-index: 3;
+      background: rgba(0,0,0,0.25);
+      padding: 8px 10px;
+      border-radius: 999px;
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-carousel-dots .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.7);
+      background: rgba(255,255,255,0.35);
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .hero-carousel-dots .dot.is-active {
+      background: rgba(255,255,255,0.95);
+    }
+
+    @media (max-width: 700px) {
+      .hero-carousel { height: 54vh; min-height: 320px; }
+      .hero-overlay { padding-bottom: 40px; }
+    }
+
     /* Problem card: full-bleed (edge-to-edge) */
     .problem-fullbleed {
       width: calc(100% - 40px);
@@ -196,6 +422,60 @@
       grid-column: 1 / -1;
     }
 
+    /* Toggle for contrail schematic */
+    .fuel-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      color: #334155;
+      user-select: none;
+    }
+
+    .fuel-toggle input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .fuel-toggle-track {
+      width: 52px;
+      height: 30px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.55);
+      border: 1px solid rgba(148, 163, 184, 0.65);
+      position: relative;
+      flex: 0 0 auto;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.55);
+    }
+
+    .fuel-toggle-track::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      left: 3px;
+      width: 24px;
+      height: 24px;
+      border-radius: 999px;
+      background: white;
+      box-shadow: 0 6px 16px rgba(15,23,42,0.18);
+      transition: transform 160ms ease;
+    }
+
+    .fuel-toggle input:checked + .fuel-toggle-track {
+      background: rgba(29, 78, 216, 0.28);
+      border-color: rgba(29, 78, 216, 0.35);
+    }
+
+    .fuel-toggle input:checked + .fuel-toggle-track::after {
+      transform: translateX(22px);
+    }
+
+    .fuel-toggle-label {
+      font-size: 13px;
+      color: #475569;
+    }
+
     /* Figure wrapper */
     .contrail-figure {
       position: relative;
@@ -206,6 +486,72 @@
       outline-offset: 6px;
     }
   </style>
+
+  <script>
+    // Swipe/scroll carousel dot indicator + click-to-scroll.
+    (function () {
+      const track = document.getElementById('heroCarousel');
+      if (!track) return;
+
+      const dots = Array.from(document.querySelectorAll('.hero-carousel-dots .dot'));
+      const slides = Array.from(track.querySelectorAll('.hero-slide'));
+
+      function setActiveDot(index) {
+        dots.forEach((d, i) => d.classList.toggle('is-active', i === index));
+      }
+
+      let ticking = false;
+      track.addEventListener('scroll', () => {
+        if (ticking) return;
+        ticking = true;
+        window.requestAnimationFrame(() => {
+          const w = track.clientWidth;
+          const idx = Math.round(track.scrollLeft / w);
+          setActiveDot(Math.max(0, Math.min(idx, slides.length - 1)));
+          ticking = false;
+        });
+      }, { passive: true });
+
+      dots.forEach((dot, i) => {
+        dot.addEventListener('click', () => {
+          track.scrollTo({ left: i * track.clientWidth, behavior: 'smooth' });
+        });
+      });
+
+      track.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+        const w = track.clientWidth;
+        const idx = Math.round(track.scrollLeft / w);
+        const next = e.key === 'ArrowRight' ? idx + 1 : idx - 1;
+        const clamped = Math.max(0, Math.min(next, slides.length - 1));
+        track.scrollTo({ left: clamped * w, behavior: 'smooth' });
+      });
+
+      setActiveDot(0);
+    })();
+
+    // Contrail schematic toggle (conventional <-> low-aromatic)
+    (function () {
+      const toggle = document.getElementById('fuelToggle');
+      const img = document.getElementById('contrailImg');
+      if (!toggle || !img) return;
+
+      const conventional = img.getAttribute('data-conventional');
+      const low = img.getAttribute('data-low');
+
+      function swap(src) {
+        img.style.opacity = '0.25';
+        window.setTimeout(() => {
+          img.src = src;
+          img.style.opacity = '1';
+        }, 140);
+      }
+
+      toggle.addEventListener('change', () => {
+        swap(toggle.checked ? low : conventional);
+      });
+    })();
+  </script>
 
   <script src="assets/js/scripts.js"></script>
 </body>

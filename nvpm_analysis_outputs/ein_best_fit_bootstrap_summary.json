@@ -1,0 +1,28 @@
+{
+  "best_model": "log_poly2",
+  "display_name": "Log-Polynomial (2nd Order)",
+  "selection_rule": "lowest in-sample RMSE, then lowest MAE",
+  "r2": 0.5984645250295032,
+  "rmse": 0.25299353342368186,
+  "mae": 0.18923098122400145,
+  "n": 170,
+  "bootstrap_requested": 10,
+  "bootstrap_successful_by_model": {
+    "icao_family_exp": 10,
+    "mechanistic_icao_ratio": 10,
+    "power_law_exp": 10,
+    "saturating_exp": 10,
+    "log_poly2": 10,
+    "quad_rational": 10,
+    "quad_rational_constrained": 10
+  },
+  "ci_method": "residual bootstrap: resample residuals, add to fitted predictions, refit each model, take 2.5th/97.5th percentiles of baseline-relative predictions",
+  "hydrogen_baseline": 13.8,
+  "F_grid": [
+    0.07,
+    0.3,
+    0.65,
+    0.85,
+    1.0
+  ]
+}

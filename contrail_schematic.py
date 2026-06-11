@@ -278,9 +278,7 @@ ax.text(0.45, 6.05, info_box_text, fontsize=8.5,
         bbox=dict(boxstyle='round', facecolor='#FFF9E6', alpha=0.92, pad=0.7),
         ha='left', va='top', family='monospace')
 
-# Title
-fig.suptitle('Aircraft Soot Emissions & Contrail Formation',
-             fontsize=16, fontweight='bold', y=0.98)
+# (No suptitle; website provides context)
 
 plt.tight_layout()
 plt.savefig('contrail_formation.png', dpi=300, bbox_inches='tight', facecolor='white')
