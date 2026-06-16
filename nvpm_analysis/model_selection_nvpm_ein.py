@@ -514,12 +514,24 @@ def main() -> None:
         )
         scores.append(sc)
 
+    model_categories = {
+        "icao-family-exp": "physical_candidate",
+        "mechanistic-icao-ratio": "physical_candidate",
+        "power-law-exp": "physical_candidate",
+        "saturating-exp": "physical_candidate",
+        "quad-rational": "physical_candidate",
+        "log-poly2": "semi_flexible_empirical_benchmark",
+        "poly2": "flexible_empirical_benchmark",
+        "poly3": "flexible_empirical_benchmark",
+    }
+
     # table
     rows = []
     for sc in scores:
         rows.append(
             {
                 "model": sc.name,
+                "category": model_categories.get(sc.name, "uncategorized"),
                 "n_params": sc.n_params,
                 "cv_rmse_log": sc.cv_rmse_log,
                 "cv_rmse": sc.cv_rmse,
@@ -528,11 +540,12 @@ def main() -> None:
             }
         )
 
-    out = pd.DataFrame(rows).sort_values(["cv_rmse_log", "cv_rmse"]).reset_index(drop=True)
+    out = pd.DataFrame(rows).sort_values(["category", "cv_rmse_log", "cv_rmse"]).reset_index(drop=True)
     out.to_csv(outdir / "ein_model_selection_summary.csv", index=False)
 
-    print("\nEIn model selection using baseline g(H,F) relative to 13.8%; predictions are g(H_fuel,F)/g(H_ref,F) (sorted by CV RMSE on log-scale):")
-    print(out[["model", "n_params", "cv_rmse_log", "cv_rmse", "cv_r2"]].to_string(index=False))
+    print("\nEIn model selection using baseline g(H,F) relative to 13.8%; predictions are g(H_fuel,F)/g(H_ref,F).")
+    print("Models are grouped by interpretive category, then sorted by CV RMSE on log-scale within category:")
+    print(out[["category", "model", "n_params", "cv_rmse_log", "cv_rmse", "cv_r2"]].to_string(index=False))
 
 
 if __name__ == "__main__":

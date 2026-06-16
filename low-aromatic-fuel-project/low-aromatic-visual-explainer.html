@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cost–Benefit Framework for Low-Aromatic Jet Fuel</title>
+  <style>
+    :root {
+      --background: oklch(0.97 0.005 260);
+      --foreground: oklch(0.18 0.02 260);
+      --card: oklch(1 0 0);
+      --card-foreground: oklch(0.18 0.02 260);
+      --primary: oklch(0.50 0.25 280);
+      --primary-foreground: oklch(1 0 0);
+      --secondary: oklch(0.50 0.18 180);
+      --secondary-foreground: oklch(1 0 0);
+      --muted: oklch(0.92 0.01 260);
+      --muted-foreground: oklch(0.40 0.02 260);
+      --accent: oklch(0.60 0.22 50);
+      --accent-foreground: oklch(0.18 0.02 260);
+      --destructive: oklch(0.50 0.25 25);
+      --destructive-foreground: oklch(1 0 0);
+      /* Completed / current step (yellow) */
+      --success: oklch(0.82 0.16 85);
+      --success-foreground: oklch(0.18 0.02 260);
+      --warning: oklch(0.55 0.18 85);
+      --warning-foreground: oklch(0.18 0.02 260);
+      --border: oklch(0.88 0.01 260);
+      --input: oklch(0.92 0.01 260);
+      --ring: oklch(0.50 0.25 280);
+      --code-bg: oklch(0.92 0.01 260);
+
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, monospace;
+      --font-display: ui-serif, Georgia, 'Times New Roman', serif;
+      --radius: 0.625rem;
+
+      /* Project group colors */
+      --refinery: oklch(0.56 0.18 255); /* blue */
+      --env: oklch(0.56 0.18 150);      /* green */
+      --cba: oklch(0.70 0.16 60);       /* orange */
+
+      --refinery-soft: color-mix(in oklab, var(--refinery) 10%, transparent);
+      --env-soft: color-mix(in oklab, var(--env) 10%, transparent);
+      --cba-soft: color-mix(in oklab, var(--cba) 12%, transparent);
+
+      --shadow: 0 10px 30px rgba(20, 20, 40, 0.08);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-sans);
+      /* Tiedye-style backdrop (blue/green/orange), still anchored to theme tokens */
+      background:
+        radial-gradient(900px 520px at 12% 18%, color-mix(in oklab, var(--refinery) 38%, transparent), transparent 58%),
+        radial-gradient(820px 500px at 42% 12%, color-mix(in oklab, var(--env) 34%, transparent), transparent 60%),
+        radial-gradient(860px 560px at 78% 18%, color-mix(in oklab, var(--cba) 38%, transparent), transparent 60%),
+        radial-gradient(900px 600px at 55% 60%, color-mix(in oklab, var(--refinery) 18%, var(--env) 16%), transparent 62%),
+        radial-gradient(980px 640px at 28% 70%, color-mix(in oklab, var(--env) 20%, var(--cba) 16%), transparent 64%),
+        radial-gradient(980px 640px at 78% 78%, color-mix(in oklab, var(--cba) 18%, var(--refinery) 14%), transparent 66%),
+        var(--background);
+      color: var(--foreground);
+      line-height: 1.55;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 56px 24px 72px;
+    }
+
+    header {
+      display: grid;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 650;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted-foreground);
+    }
+
+    header h1 {
+      font-family: var(--font-display);
+      font-size: 2.05rem;
+      font-weight: 520;
+      line-height: 1.16;
+      letter-spacing: -0.01em;
+      max-width: 38ch;
+    }
+
+    .subhead {
+      max-width: 95ch;
+      color: var(--muted-foreground);
+      font-size: 1.02rem;
+      line-height: 1.55;
+    }
+
+    .subhead strong { color: var(--foreground); font-weight: 650; }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin: 22px 0 22px;
+    }
+
+    .stat-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      background: var(--card);
+      min-height: 78px;
+      display: grid;
+      align-content: start;
+      gap: 6px;
+      box-shadow: 0 1px 0 rgba(0,0,0,0.02);
+    }
+
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted-foreground);
+    }
+
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.26rem;
+      font-weight: 520;
+      color: var(--foreground);
+      line-height: 1.12;
+    }
+
+    .stat-note {
+      font-size: 0.82rem;
+      color: var(--muted-foreground);
+      line-height: 1.35;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0 18px;
+    }
+
+    .legend .item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--card);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--foreground);
+    }
+
+    .legend .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .dot.refinery { background: var(--refinery); }
+    .dot.env { background: var(--env); }
+    .dot.cba { background: var(--cba); }
+
+    .diagram-panel {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 22px;
+      background: var(--card);
+      box-shadow: var(--shadow);
+    }
+
+    .diagram-caption {
+      margin-top: 12px;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--muted-foreground);
+    }
+
+    .below {
+      margin-top: 16px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+    }
+
+    .section-card {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 16px 18px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1.2px solid var(--border);
+      background: var(--muted);
+      color: var(--muted-foreground);
+      white-space: nowrap;
+    }
+
+    .pill.current {
+      border-color: color-mix(in oklab, var(--success) 55%, var(--border));
+      background: color-mix(in oklab, var(--success) 12%, transparent);
+      color: var(--success);
+    }
+
+    .pathways {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+
+    .pathway-btn {
+      border: 1.5px solid var(--border);
+      border-radius: calc(var(--radius) - 2px);
+      padding: 14px 14px;
+      background: color-mix(in oklab, var(--refinery) 6%, transparent);
+      text-align: left;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+    }
+
+    .pathway-btn:hover {
+      transform: translateY(-1px);
+      border-color: color-mix(in oklab, var(--refinery) 55%, var(--border));
+      box-shadow: 0 10px 24px rgba(20, 25, 40, 0.08);
+    }
+
+    .pathway-btn:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--refinery) 25%, transparent);
+    }
+
+    .pathway-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--refinery);
+    }
+
+    .pathway-title {
+      margin-top: 6px;
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
+      font-weight: 700;
+      color: var(--foreground);
+    }
+
+    .pathway-desc {
+      margin-top: 6px;
+      font-size: 0.86rem;
+      color: var(--muted-foreground);
+      line-height: 1.45;
+    }
+
+    dialog {
+      border: none;
+      border-radius: calc(var(--radius) + 4px);
+      padding: 0;
+      width: min(980px, calc(100vw - 32px));
+      box-shadow: 0 30px 80px rgba(20, 25, 40, 0.25);
+      background: var(--card);
+    }
+
+    dialog::backdrop {
+      background: rgba(10, 12, 20, 0.42);
+      backdrop-filter: blur(3px);
+    }
+
+    .modal {
+      display: grid;
+      grid-template-rows: auto 1fr;
+      max-height: min(86vh, 880px);
+      overflow: hidden;
+    }
+
+    .modal-head {
+      padding: 16px 18px;
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .modal-head h2 {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 520;
+      line-height: 1.2;
+    }
+
+    .modal-head p {
+      margin-top: 4px;
+      font-size: 0.9rem;
+      color: var(--muted-foreground);
+      max-width: 85ch;
+      line-height: 1.45;
+    }
+
+    .modal-close {
+      border: 1.5px solid var(--border);
+      background: var(--muted);
+      color: var(--foreground);
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-family: var(--font-mono);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      transition: border-color 0.12s ease, transform 0.12s ease;
+    }
+
+    .modal-close:hover {
+      border-color: color-mix(in oklab, var(--primary) 50%, var(--border));
+      transform: translateY(-1px);
+    }
+
+    .modal-body {
+      padding: 18px;
+      overflow: auto;
+      background: linear-gradient(180deg, var(--card) 0%, color-mix(in oklab, var(--muted) 55%, transparent) 100%);
+    }
+
+    .schematic {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 18px;
+    }
+
+    .tradeoffs {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .trade {
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 12px 14px;
+    }
+
+    .trade .label {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted-foreground);
+    }
+
+    .trade .value {
+      margin-top: 6px;
+      font-size: 0.92rem;
+      color: var(--foreground);
+      line-height: 1.4;
+      font-weight: 650;
+    }
+
+    .trade .note {
+      margin-top: 4px;
+      font-size: 0.84rem;
+      color: var(--muted-foreground);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 980px) {
+      .summary-strip { grid-template-columns: 1fr 1fr; }
+      .pathways { grid-template-columns: 1fr; }
+      .tradeoffs { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      header h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="eyebrow">Refinery model → environmental impacts → monetized cost–benefit analysis</span>
+      <h1>Cost–Benefit Framework for Low-Aromatic Jet Fuel</h1>
+      <p class="subhead">
+        <strong>How do the economic, climate, air-quality, and fuel-composition tradeoffs of producing low-aromatic jet fuel compare across refinery pathways?</strong>
+        <br />
+        Benefits from lower aromatics and particulate emissions must be weighed against added processing costs, <strong>added refinery CO₂ emissions</strong> from fuel treatment,
+        <strong>hydrogen-source assumptions</strong>, and possible <strong>sulfur reduction / radiative forcing tradeoffs</strong>.
+      </p>
+    </header>
+
+    <div class="summary-strip">
+      <div class="stat-card">
+        <span class="stat-label">Incremental production cost</span>
+        <span class="stat-value">Δ cost ($/gal)</span>
+        <span class="stat-note">Refinery pathway + H₂ source (SMR vs electrolysis)</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Air-quality benefit</span>
+        <span class="stat-value">$ benefit</span>
+        <span class="stat-note">Includes geographic variability in benefits</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Climate effect</span>
+        <span class="stat-value">$ benefit − $ cost</span>
+        <span class="stat-note">Contrails + added refinery CO₂ + sulfur-RF cases</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">Cost–benefit ratio</span>
+        <span class="stat-value">benefit ÷ cost</span>
+        <span class="stat-note">Reported as a range across sensitivity cases</span>
+      </div>
+    </div>
+
+    <div class="legend" aria-label="Legend">
+      <span class="item"><span class="dot refinery"></span> Fuel production + pathway model (blue)</span>
+      <span class="item"><span class="dot env"></span> Impacts (green)</span>
+      <span class="item"><span class="dot cba"></span> Monetized outcomes (orange)</span>
+      <span class="item"><span class="dot" style="background:var(--success)"></span> Completed / current step</span>
+    </div>
+
+    <div class="diagram-panel">
+      <!-- Orthogonal-lane framework diagram (no connector overlaps) -->
+      <svg viewBox="0 0 1440 560" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+        <style>
+          .title { font-family: var(--font-sans); font-size: 13.5px; font-weight: 720; fill: var(--foreground); }
+          .sub { font-family: var(--font-mono); font-size: 10px; fill: var(--muted-foreground); }
+          .group { font-family: var(--font-mono); font-size: 10.5px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; }
+          .chip { font-family: var(--font-mono); font-size: 10px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; }
+
+          .node-ref { fill: var(--refinery-soft); stroke: var(--refinery); stroke-width: 1.6; }
+          .node-env { fill: var(--env-soft); stroke: var(--env); stroke-width: 1.6; }
+          .node-cba { fill: var(--cba-soft); stroke: var(--cba); stroke-width: 1.6; }
+
+          .lane-label { font-family: var(--font-mono); font-size: 10px; font-weight: 900; letter-spacing: 0.06em; text-transform: uppercase; }
+          /* Lane guides: kept extremely subtle to preserve whitespace-first slide aesthetic */
+          .lane { stroke: var(--border); stroke-width: 1; opacity: 0.18; }
+
+
+          .cap { stroke-linecap: round; stroke-linejoin: round; }
+
+          .done-pill { fill: color-mix(in oklab, var(--success) 18%, transparent); stroke: var(--success); stroke-width: 1.2; }
+          .done-text { fill: var(--success); }
+
+          /* Icon system (simple, inline, theme-aware) */
+          .icon { stroke-width: 1.6; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+          .icon-ref { stroke: var(--refinery); }
+          .icon-env { stroke: var(--env); }
+          .icon-cba { stroke: var(--cba); }
+          .icon-muted { stroke: var(--muted-foreground); }
+
+          .icon-fill-ref { fill: color-mix(in oklab, var(--refinery) 18%, transparent); stroke: var(--refinery); stroke-width: 1.6; }
+          .icon-fill-env { fill: color-mix(in oklab, var(--env) 18%, transparent); stroke: var(--env); stroke-width: 1.6; }
+          .icon-fill-cba { fill: color-mix(in oklab, var(--cba) 22%, transparent); stroke: var(--cba); stroke-width: 1.6; }
+        </style>
+
+        <defs>
+          <marker id="arrow-ref" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--refinery)"/>
+          </marker>
+          <marker id="arrow-env" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--env)"/>
+          </marker>
+          <marker id="arrow-cba" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--cba)"/>
+          </marker>
+          <marker id="arrow-muted" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="var(--muted-foreground)"/>
+          </marker>
+        </defs>
+
+        <!-- (Optional) Lane guides. If you prefer a cleaner slide, remove these entirely or keep them ultra-subtle via CSS opacity. -->
+        <line x1="40" y1="112" x2="1400" y2="112" class="lane"/>
+        <line x1="40" y1="232" x2="1400" y2="232" class="lane"/>
+        <line x1="40" y1="352" x2="1400" y2="352" class="lane"/>
+        <line x1="40" y1="472" x2="1400" y2="472" class="lane"/>
+
+        <!-- Lane labels are positioned in the left margin *above* each lane guide to avoid overlapping node titles -->
+
+
+        <!-- Column group labels removed for a cleaner module-map view -->
+
+        <!-- Nodes: left block -->
+        <rect x="40" y="56" width="400" height="112" rx="14" class="node-ref"/>
+        <!-- Icon: refinery / pathway (small distillation column) -->
+        <g transform="translate(58,78) scale(0.82)" class="icon icon-ref">
+          <path d="M10 0 L10 38" />
+          <path d="M6 6 L14 6" />
+          <path d="M6 16 L14 16" />
+          <path d="M6 26 L14 26" />
+          <path d="M10 38 L3 48" />
+          <path d="M10 38 L17 48" />
+          <path d="M3 48 L17 48" />
+        </g>
+        <text x="104" y="86" class="title">Refinery process models</text>
+        <text x="104" y="104" class="title" style="font-size: 12.5px; font-weight: 680;">(pathways)</text>
+        <text x="104" y="128" class="sub">Hydrotreatment or solvent extraction</text>
+        <text x="104" y="148" class="sub">Outputs: energy + material inputs</text>
+        <text x="104" y="166" class="sub">Unit-level demands</text>
+
+        <rect x="308" y="70" width="80" height="22" rx="11" class="done-pill"/>
+        <text x="348" y="85" text-anchor="middle" class="chip done-text">current</text>
+
+        <rect x="40" y="188" width="400" height="96" rx="14" class="node-ref"/>
+        <!-- Icon: fuel droplet -->
+        <g transform="translate(58,210) scale(0.82)" class="icon icon-ref">
+          <path d="M10 0 C10 0 24 16 24 28 C24 39 18 46 10 46 C2 46 -4 39 -4 28 C-4 16 10 0 10 0 Z" />
+          <path d="M4 30 C6 34 10 36 14 36" opacity="0.55" />
+        </g>
+        <text x="104" y="218" class="title">Fuel property changes</text>
+        <text x="104" y="238" class="sub">Aromatics ↓ ; sulfur reduction / possible RF tradeoff</text>
+        <text x="104" y="258" class="sub">Supports combustion/emissions parameterization</text>
+
+        <rect x="40" y="320" width="400" height="96" rx="14" class="node-env"/>
+        <!-- Icon: CO2 cloud -->
+        <g transform="translate(56,340) scale(0.82)" class="icon icon-env">
+          <path d="M16 40 H44" />
+          <path d="M18 40 C10 40 6 36 6 30 C6 24 10 20 16 20 C18 12 24 8 30 8 C38 8 44 14 44 22 C50 22 54 26 54 32 C54 38 50 40 44 40" />
+          <path d="M18 24 C18 20 22 16 28 16" opacity="0.55" />
+        </g>
+        <text x="112" y="350" class="title">Added refinery CO₂ emissions</text>
+        <text x="112" y="370" class="sub">Treatment energy + hydrogen source: SMR vs electrolysis</text>
+        <text x="112" y="390" class="sub">Lifecycle boundary for production-stage emissions</text>
+
+        <rect x="40" y="452" width="400" height="96" rx="14" class="node-cba"/>
+        <!-- Icon: cost tag -->
+        <g transform="translate(56,474) scale(0.82)" class="icon icon-cba">
+          <path d="M6 4 H34 L50 20 V50 H6 Z" />
+          <path d="M34 4 V20 H50" />
+          <circle cx="20" cy="26" r="4" />
+          <path d="M14 40 H42" />
+        </g>
+        <text x="112" y="482" class="title">Incremental production cost (Δ cost)</text>
+        <text x="112" y="502" class="sub">TEA from material + energy inputs (CAPEX/OPEX)</text>
+        <text x="112" y="522" class="sub">Scenario-dependent by pathway + H₂ assumptions</text>
+
+        <!-- Nodes: middle block -->
+        <rect x="532" y="56" width="400" height="112" rx="14" class="node-env"/>
+        <!-- Icon: jet / combustion plume -->
+        <g transform="translate(550,78) scale(0.82)" class="icon icon-env">
+          <path d="M0 16 H44" />
+          <path d="M22 16 L34 8" />
+          <path d="M22 16 L34 24" />
+          <path d="M10 16 L4 10" />
+          <path d="M10 16 L4 22" />
+          <path d="M44 16 C52 16 56 20 58 26" opacity="0.55" />
+          <path d="M44 16 C52 16 56 12 58 6" opacity="0.35" />
+        </g>
+        <text x="608" y="86" class="title">Combustion / emissions impacts</text>
+        <text x="608" y="104" class="title" style="font-size: 12.5px; font-weight: 680;">(literature)</text>
+        <text x="608" y="128" class="sub">Particulate emissions ↓</text>
+        <text x="608" y="146" class="sub">Plume microphysics shifts</text>
+
+
+        <rect x="532" y="188" width="400" height="96" rx="14" class="node-env"/>
+        <!-- Icon: lungs -->
+        <g transform="translate(550,208) scale(0.82)" class="icon icon-env">
+          <path d="M22 10 V46" />
+          <path d="M22 22 C16 18 10 18 6 24 C2 30 2 40 8 44 C12 46 16 44 18 40" />
+          <path d="M22 22 C28 18 34 18 38 24 C42 30 42 40 36 44 C32 46 28 44 26 40" />
+        </g>
+        <text x="608" y="218" class="title">Air-quality impacts</text>
+        <text x="608" y="238" class="sub">Exposure → health outcomes</text>
+        <text x="608" y="258" class="sub">Geographic variability in air-quality benefits</text>
+
+        <rect x="532" y="320" width="400" height="92" rx="16" class="node-env"/>
+        <!-- Icon: globe -->
+        <g transform="translate(550,342) scale(0.72)" class="icon icon-env">
+          <circle cx="22" cy="22" r="20" />
+          <path d="M2 22 H42" />
+          <path d="M22 2 V42" opacity="0.35" />
+          <path d="M10 10 C16 16 16 28 10 34" opacity="0.55" />
+          <path d="M34 10 C28 16 28 28 34 34" opacity="0.55" />
+        </g>
+        <text x="608" y="352" class="title">Climate impacts</text>
+        <text x="608" y="372" class="sub">Contrails + CO₂ + sulfur-RF cases</text>
+        <text x="608" y="392" class="sub">Geographic variability of response</text>
+
+        <!-- Nodes: right block -->
+        <rect x="1024" y="56" width="400" height="112" rx="14" class="node-cba"/>
+        <!-- Icon: $ -->
+        <g transform="translate(1042,76) scale(0.82)" class="icon icon-cba">
+          <path d="M18 2 V46" />
+          <path d="M32 12 C28 6 12 6 12 16 C12 26 36 20 36 32 C36 44 14 44 10 36" />
+        </g>
+        <text x="1086" y="86" class="title">Monetize air-quality</text>
+        <text x="1086" y="104" class="title" style="font-size: 12.5px; font-weight: 680;">impacts</text>
+        <text x="1086" y="128" class="sub">VSL / morbidity valuations → $ benefit</text>
+        <text x="1086" y="148" class="sub">Report distribution over geography</text>
+        <text x="1086" y="166" class="sub">+ assumptions</text>
+
+        <rect x="1024" y="212" width="400" height="112" rx="14" class="node-cba"/>
+        <!-- Icon: scales -->
+        <g transform="translate(1040,232) scale(0.82)" class="icon icon-cba">
+          <path d="M22 2 V46" />
+          <path d="M6 12 H38" />
+          <path d="M10 12 L4 24 H16 Z" />
+          <path d="M34 12 L28 24 H40 Z" />
+          <path d="M12 24 C10 30 6 32 4 32" opacity="0.5" />
+          <path d="M36 24 C34 30 30 32 28 32" opacity="0.5" />
+        </g>
+        <text x="1086" y="242" class="title">Monetize climate</text>
+        <text x="1086" y="260" class="title" style="font-size: 12.5px; font-weight: 680;">impacts</text>
+        <text x="1086" y="284" class="sub">Damage factors / SCC; include sulfur-RF cases</text>
+        <text x="1086" y="304" class="sub">Combine with added refinery CO₂ emissions</text>
+
+        <rect x="1024" y="368" width="400" height="112" rx="14" class="node-cba"/>
+        <!-- Icon: ratio -->
+        <g transform="translate(1042,388) scale(0.82)" class="icon icon-cba">
+          <path d="M6 36 H44" />
+          <circle cx="16" cy="14" r="4" />
+          <circle cx="34" cy="26" r="4" />
+          <path d="M10 30 L40 10" />
+        </g>
+        <text x="1086" y="398" class="title">Net outcomes</text>
+        <text x="1086" y="416" class="title" style="font-size: 12.5px; font-weight: 680;">+ cost–benefit ratio</text>
+        <text x="1086" y="440" class="sub">(AQ + climate benefits − climate costs) vs Δ cost</text>
+        <text x="1086" y="460" class="sub">Final output: range across</text>
+        <text x="1086" y="478" class="sub">sensitivity / uncertainty</text>
+
+        <!-- Orthogonal connectors routed through whitespace lanes only -->
+        <!-- NOTE: coordinates are chosen to avoid intersecting node boxes. -->
+
+
+        <!-- Fuel property changes -> Combustion / emissions impacts (straight through whitespace; rounded not needed) -->
+        <path d="M456 232 H532" class="cap" stroke="var(--refinery)" stroke-width="2" fill="none" marker-end="url(#arrow-ref)"/>
+
+        <!-- Added refinery CO₂ emissions -> Climate impacts (stay in whitespace; rounded) -->
+        <path d="M456 368 H500 Q512 368 512 356 V366 Q512 354 524 354 H532" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
+
+        <!-- Combustion / emissions impacts (literature) -> Air-quality impacts (down inside middle column whitespace) -->
+        <path d="M732 168 V188" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
+
+        <!-- Combustion / emissions impacts (literature) -> Climate impacts (route around Air-quality box via internal gutter; rounded) -->
+        <path d="M768 168 V180 Q768 188 776 188 H952 Q964 188 964 200 V320" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
+
+        <!-- Air-quality impacts -> Monetize air-quality impacts (route above via right gutter; rounded) -->
+        <path d="M932 236 H980 Q992 236 992 224 V112 Q992 100 1004 100 H1024" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+
+        <!-- Climate impacts -> Monetize climate impacts (route through right gutter; rounded) -->
+        <path d="M932 366 H980 Q992 366 992 354 V268 Q992 256 1004 256 H1024" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+
+        <!-- Air-quality monetization -> Net outcomes (down within right column whitespace) -->
+        <path d="M1240 168 V368" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+
+        <!-- Climate monetization -> Net outcomes (short drop) -->
+        <path d="M1240 324 V368" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+
+        <!-- Incremental production cost (Δ cost) -> Net outcomes (route around boxes along bottom gutter; rounded) -->
+        <path d="M440 500 V540 Q440 552 452 552 H980 Q992 552 992 540 V424 Q992 412 1004 412 H1024" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+
+      </svg>
+      <span class="diagram-caption">
+        Top-level framework: fuel production & pathway model → fuel properties → combustion/emissions → climate & air-quality impacts → monetized outcomes → sensitivity/uncertainty.
+      </span>
+    </div>
+
+    <!-- Clickable refinery pathway cards (outside SVG for accessibility + real interaction) -->
+    <div class="below">
+      <div class="section-card" style="border-left: 4px solid var(--refinery)">
+        <div class="section-head">
+          <div class="section-title">Refinery Process Models (click to open simplified schematics)</div>
+          <span class="pill current"><span style="width:8px;height:8px;border-radius:50%;background:var(--success);"></span> current</span>
+        </div>
+        <div class="pathways">
+          <button class="pathway-btn" id="open-hydro" type="button">
+            <div class="pathway-kicker">Pathway A</div>
+            <div class="pathway-title">Hydrotreatment pathway</div>
+            <div class="pathway-desc">Aromatics + sulfur reduction via H₂ addition; costs and CO₂ depend strongly on hydrogen source.</div>
+          </button>
+          <button class="pathway-btn" id="open-solvent" type="button">
+            <div class="pathway-kicker">Pathway B</div>
+            <div class="pathway-title">Solvent extraction pathway</div>
+            <div class="pathway-desc">Aromatics removal via liquid–liquid extraction; tradeoffs include solvent circulation, utilities, losses, and capital intensity.</div>
+          </button>
+        </div>
+      </div>
+
+      <div class="section-card" style="border-left: 4px solid var(--muted-foreground); background: var(--muted)">
+        <div class="section-head">
+          <div class="section-title">Sensitivity / uncertainty analysis</div>
+          <span class="pill current"><span style="width:8px;height:8px;border-radius:50%;background:var(--success);"></span> current</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px;">
+          <div class="trade" style="background: color-mix(in oklab, var(--refinery) 6%, transparent);">
+            <div class="label">Refinery pathway sensitivity</div>
+            <div class="value">Aromatics target; hydrogen source (SMR vs electrolysis)</div>
+            <div class="note">Drives incremental production cost and added refinery CO₂ emissions.</div>
+          </div>
+          <div class="trade" style="background: color-mix(in oklab, var(--env) 6%, transparent);">
+            <div class="label">Impacts sensitivity</div>
+            <div class="value">Geographic variability in air-quality benefits</div>
+            <div class="note">Population exposure + meteorology produce large regional differences.</div>
+          </div>
+          <div class="trade" style="background: color-mix(in oklab, var(--cba) 6%, transparent);">
+            <div class="label">Climate tradeoff cases</div>
+            <div class="value">Sulfur reduction / possible RF tradeoff</div>
+            <div class="note">Evaluate contrail + CO₂ outcomes across sulfur-related cases.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hydrotreatment modal (inline SVG schematic derived from provided image) -->
+  <dialog id="modal-hydro" aria-labelledby="modal-hydro-title">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h2 id="modal-hydro-title">Hydrotreatment pathway — simplified schematic</h2>
+          <p>
+            Atmospheric distillation produces a <strong>kerosene cut</strong>. Kerosene is treated in a <strong>hydrotreater</strong> with <strong>makeup hydrogen</strong>, then separated in a <strong>fractionator</strong>.
+            Acid gas is handled via <strong>amine</strong> + <strong>Claus</strong>. Outputs include HT kerosene and sulfur byproducts.
+          </p>
+        </div>
+        <button class="modal-close" data-close="modal-hydro" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="schematic">
+          <svg viewBox="0 0 980 420" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+            <style>
+              .b { fill: var(--card); stroke: var(--border); stroke-width: 1.5; }
+              .b2 { fill: color-mix(in oklab, var(--refinery) 7%, transparent); stroke: var(--refinery); stroke-width: 1.6; }
+              .t { font-family: var(--font-sans); font-size: 13px; font-weight: 700; fill: var(--foreground); }
+              .m { font-family: var(--font-mono); font-size: 10.5px; fill: var(--muted-foreground); }
+              .w { stroke: var(--muted-foreground); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+              .wH2 { stroke: var(--refinery); stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+              .wS { stroke: var(--cba); stroke-width: 1.7; fill: none; stroke-dasharray: 6 5; stroke-linecap: round; stroke-linejoin: round; }
+            </style>
+            <defs>
+              <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--muted-foreground)"/>
+              </marker>
+              <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--refinery)"/>
+              </marker>
+            </defs>
+
+            <!-- Atmospheric distillation -->
+            <rect x="40" y="68" width="200" height="70" rx="12" class="b2" />
+            <text x="60" y="98" class="t">Atmospheric distillation</text>
+            <text x="60" y="118" class="m">Crude → cuts</text>
+
+            <!-- Kerosene cut -->
+            <rect x="40" y="170" width="200" height="58" rx="12" class="b" />
+            <text x="60" y="202" class="t">Kerosene cut</text>
+            <text x="60" y="220" class="m">feed to hydrotreater</text>
+
+            <!-- Hydrotreater -->
+            <rect x="320" y="140" width="220" height="84" rx="12" class="b2" />
+            <text x="340" y="172" class="t">Hydrotreater</text>
+            <text x="340" y="192" class="m">aromatics ↓ ; sulfur ↓</text>
+            <text x="340" y="212" class="m">H₂ demand ↑</text>
+
+            <!-- Makeup hydrogen -->
+            <rect x="320" y="56" width="220" height="58" rx="12" class="b" />
+            <text x="340" y="88" class="t">Makeup hydrogen</text>
+            <text x="340" y="106" class="m">SMR vs electrolysis</text>
+
+            <!-- Fractionator -->
+            <rect x="610" y="140" width="220" height="84" rx="12" class="b2" />
+            <text x="630" y="172" class="t">Fractionator</text>
+            <text x="630" y="192" class="m">separate kerosene + gas</text>
+
+            <!-- Amine unit -->
+            <rect x="610" y="260" width="220" height="58" rx="12" class="b" />
+            <text x="630" y="292" class="t">Amine unit</text>
+            <text x="630" y="310" class="m">acid gas removal</text>
+
+            <!-- Claus unit -->
+            <rect x="610" y="336" width="220" height="58" rx="12" class="b" />
+            <text x="630" y="368" class="t">Claus unit</text>
+            <text x="630" y="386" class="m">sulfur recovery</text>
+
+            <!-- Outputs -->
+            <rect x="870" y="140" width="90" height="84" rx="12" class="b" />
+            <text x="915" y="172" text-anchor="middle" class="t">HT</text>
+            <text x="915" y="192" text-anchor="middle" class="t">kerosene</text>
+            <text x="915" y="212" text-anchor="middle" class="m">product</text>
+
+            <rect x="870" y="56" width="90" height="58" rx="12" class="b" />
+            <text x="915" y="88" text-anchor="middle" class="t">HC</text>
+            <text x="915" y="108" text-anchor="middle" class="t">gas</text>
+
+            <rect x="870" y="336" width="90" height="58" rx="12" class="b" />
+            <text x="915" y="368" text-anchor="middle" class="t">Sulfur</text>
+
+            <rect x="870" y="260" width="90" height="58" rx="12" class="b" />
+            <text x="915" y="292" text-anchor="middle" class="t">Tail</text>
+            <text x="915" y="312" text-anchor="middle" class="t">gas</text>
+
+            <!-- Wires: orthogonal, no overlaps -->
+            <!-- distillation -> kerosene -->
+            <path d="M140 138 L140 170" class="w" marker-end="url(#a)" />
+            <!-- kerosene -> hydrotreater -->
+            <path d="M240 199 L280 199 L280 182 L320 182" class="w" marker-end="url(#a)" />
+            <!-- makeup H2 -> hydrotreater -->
+            <path d="M430 114 L430 140" class="wH2" marker-end="url(#a2)" />
+            <!-- hydrotreater -> fractionator -->
+            <path d="M540 182 L610 182" class="w" marker-end="url(#a)" />
+            <!-- fractionator -> outputs -->
+            <path d="M830 182 L870 182" class="w" marker-end="url(#a)" />
+            <path d="M720 140 L720 114 L870 114" class="w" marker-end="url(#a)" />
+
+            <!-- fractionator -> amine -> claus -> sulfur/tailgas -->
+            <path d="M720 224 L720 260" class="w" marker-end="url(#a)" />
+            <path d="M720 318 L720 336" class="w" marker-end="url(#a)" />
+            <path d="M830 365 L870 365" class="w" marker-end="url(#a)" />
+            <path d="M830 289 L870 289" class="w" marker-end="url(#a)" />
+
+
+          </svg>
+        </div>
+
+        <div class="tradeoffs">
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Aromatics reduction + sulfur reduction</div>
+            <div class="note">Lower aromatics can reduce particulate emissions; sulfur reduction may affect radiative forcing outcomes.</div>
+          </div>
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Hydrogen demand → added refinery CO₂ emissions</div>
+            <div class="note">Hydrogen source (SMR vs electrolysis) dominates production-stage CO₂ outcomes and incremental production cost.</div>
+          </div>
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Incremental production cost (TEA)</div>
+            <div class="note">Driven by utilities, hydrogen, and unit additions (CAPEX/OPEX) for treatment and sulfur handling.</div>
+          </div>
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Net climate outcome depends on multiple effects</div>
+            <div class="note">Contrails + CO₂ + sulfur-related cases; evaluate over geography and uncertainty ranges.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Solvent extraction modal -->
+  <dialog id="modal-solvent" aria-labelledby="modal-solvent-title">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h2 id="modal-solvent-title">Solvent extraction pathway — simplified schematic</h2>
+          <p>
+            Atmospheric distillation produces a kerosene cut. Kerosene is processed through an <strong>extractor</strong> with a circulating solvent,
+            followed by <strong>washer</strong> + <strong>stripper</strong> stages and <strong>solvent recovery</strong> with recycled solvent and water loops.
+          </p>
+        </div>
+        <button class="modal-close" data-close="modal-solvent" type="button">Close</button>
+      </div>
+      <div class="modal-body">
+        <div class="schematic">
+          <svg viewBox="0 0 980 420" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+            <style>
+              .b { fill: var(--card); stroke: var(--border); stroke-width: 1.5; }
+              .b2 { fill: color-mix(in oklab, var(--refinery) 7%, transparent); stroke: var(--refinery); stroke-width: 1.6; }
+              .t { font-family: var(--font-sans); font-size: 13px; font-weight: 700; fill: var(--foreground); }
+              .m { font-family: var(--font-mono); font-size: 10.5px; fill: var(--muted-foreground); }
+              .w { stroke: var(--muted-foreground); stroke-width: 1.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+              .wSol { stroke: var(--refinery); stroke-width: 1.7; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+
+            </style>
+            <defs>
+              <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--muted-foreground)"/>
+              </marker>
+              <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--refinery)"/>
+              </marker>
+
+            </defs>
+
+            <rect x="40" y="68" width="200" height="70" rx="12" class="b2" />
+            <text x="60" y="98" class="t">Atmospheric distillation</text>
+            <text x="60" y="118" class="m">Crude → cuts</text>
+
+            <rect x="40" y="170" width="200" height="58" rx="12" class="b" />
+            <text x="60" y="202" class="t">Kerosene cut</text>
+            <text x="60" y="220" class="m">feed to extractor</text>
+
+            <rect x="320" y="120" width="220" height="62" rx="12" class="b" />
+            <text x="340" y="152" class="t">Washer</text>
+            <text x="340" y="170" class="m">wash stage</text>
+
+            <rect x="320" y="210" width="220" height="84" rx="12" class="b2" />
+            <text x="340" y="242" class="t">Extractor</text>
+            <text x="340" y="262" class="m">aromatics partition to solvent</text>
+            <text x="340" y="282" class="m">raffinate → product</text>
+
+            <!-- Stripper (next to extractor) -->
+            <rect x="610" y="210" width="220" height="84" rx="12" class="b2" />
+            <text x="630" y="242" class="t">Stripper</text>
+            <text x="630" y="262" class="m">separate aromatics</text>
+            <text x="630" y="282" class="m">utilities demand ↑</text>
+
+            <!-- Solvent recovery (below stripper) -->
+            <rect x="610" y="310" width="220" height="62" rx="12" class="b" />
+            <text x="630" y="342" class="t">Solvent recovery</text>
+            <text x="630" y="360" class="m">recycle solvent</text>
+
+            <!-- Outputs -->
+            <!-- Raffinate box (placed above washer) -->
+            <rect x="320" y="44" width="220" height="58" rx="12" class="b" />
+            <text x="430" y="76" text-anchor="middle" class="t">Raffinate</text>
+            <text x="430" y="94" text-anchor="middle" class="m">low-aromatic kerosene</text>
+
+            <rect x="870" y="310" width="90" height="62" rx="12" class="b" />
+            <text x="915" y="342" text-anchor="middle" class="t">Aromatics</text>
+            <text x="915" y="360" text-anchor="middle" class="m">product</text>
+
+            <!-- Flows (orthogonal, whitespace only) -->
+            <path d="M140 138 L140 170" class="w" marker-end="url(#a)" />
+
+            <!-- Kerosene cut → extractor (updated y) -->
+            <path d="M240 199 L280 199 L280 252 L320 252" class="w" marker-end="url(#a)" />
+
+            <!-- Extractor → stripper (same row) -->
+            <path d="M540 252 L610 252" class="w" marker-end="url(#a)" />
+
+            <!-- Stripper → aromatics product (aligned with solvent recovery) -->
+            <path d="M830 341 L870 341" class="w" marker-end="url(#a)" />
+
+            <!-- Extractor → washer (up) -->
+            <path d="M430 210 V182" class="w" marker-end="url(#a)" />
+
+            <!-- Washer → raffinate product (up into raffinate box) -->
+            <path d="M430 120 V102" class="w" marker-end="url(#a)" />
+
+            <!-- Stripper → solvent recovery (down) -->
+            <path d="M720 294 L720 310" class="w" marker-end="url(#a)" />
+
+            <!-- Solvent loop: solvent recovery to extractor (blue) -->
+            <path d="M720 372 L720 392 L430 392 L430 294" class="wSol" marker-end="url(#a2)" />
+            <text x="430" y="412" class="m" fill="var(--refinery)">recycled solvent</text>
+          </svg>
+        </div
+
+        <div class="tradeoffs">
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Aromatic removal vs solvent circulation</div>
+            <div class="note">Higher removal typically increases circulation rates and separation duty.</div>
+          </div>
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Utility demand + solvent losses</div>
+            <div class="note">Stripper + recovery energy; quantify solvent makeup and emissions implications.</div>
+          </div>
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Capital cost / process complexity</div>
+            <div class="note">Extractor/stripper/recovery train adds CAPEX; check scale sensitivity.</div>
+          </div>
+          <div class="trade">
+            <div class="label">Key tradeoff</div>
+            <div class="value">Co-product aromatics stream</div>
+            <div class="note">Allocation / market assumptions can affect net economics and outcomes.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <script>
+    (function () {
+      const hydro = document.getElementById('modal-hydro');
+      const solvent = document.getElementById('modal-solvent');
+
+      function openModal(d) {
+        if (!d) return;
+        if (typeof d.showModal === 'function') d.showModal();
+        else d.setAttribute('open', '');
+      }
+
+      function closeModal(d) {
+        if (!d) return;
+        if (typeof d.close === 'function') d.close();
+        else d.removeAttribute('open');
+      }
+
+      document.getElementById('open-hydro')?.addEventListener('click', () => openModal(hydro));
+      document.getElementById('open-solvent')?.addEventListener('click', () => openModal(solvent));
+
+      document.querySelectorAll('[data-close]')?.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-close');
+          closeModal(document.getElementById(id));
+        });
+      });
+
+      // Click outside modal content closes
+      [hydro, solvent].forEach((d) => {
+        if (!d) return;
+        d.addEventListener('click', (e) => {
+          const rect = d.getBoundingClientRect();
+          const inDialog = (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom);
+          // if clicked backdrop area (on dialog itself but outside content), close
+          if (e.target === d && inDialog) closeModal(d);
+        });
+      });
+
+      // Escape key closes automatically for <dialog>, but keep parity for fallback
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          closeModal(hydro);
+          closeModal(solvent);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

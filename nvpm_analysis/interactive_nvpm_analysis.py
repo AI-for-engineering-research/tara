@@ -208,142 +208,197 @@ def build_interactive(df: pd.DataFrame, out_html: Path, outdir: Path | None = No
     # Build one 3D figure per metric (EIn/EIm)
     figs_3d: dict[str, go.Figure] = {}
 
-    arom_col = None
+    min_surface_points = 12
 
-    for metric in ycols:
-        d = df[["ΔH", "F/F00", metric] + (["Aromatics"] if "Aromatics" in df.columns else [])].copy()
-        d = d[np.isfinite(d[metric]) & np.isfinite(d["ΔH"]) & np.isfinite(d["F/F00"])].copy()
-        # avoid log(0)
-        d = d[d[metric] > 0]
-        if len(d) < 12:
-            continue
+    def _sort_key(value: object) -> str:
+        return str(value).lower()
 
-        if arom_col is None:
-            # single surface
-            beta = _fit_poly2_surface(d["ΔH"].to_numpy(float), d["F/F00"].to_numpy(float), d[metric].to_numpy(float))
-            Hgrid = np.linspace(d["ΔH"].min(), d["ΔH"].max(), 40)
-            Fgrid = np.linspace(d["F/F00"].min(), d["F/F00"].max(), 40)
-            Hg, Fg = np.meshgrid(Hgrid, Fgrid)
-            Z = _predict_poly2(beta, Hg.ravel(), Fg.ravel()).reshape(Hg.shape)
+    def _valid_group_value(value: object) -> bool:
+        text = str(value).strip().lower()
+        return text not in {"", "nan", "none", "nat"}
 
-            fig3d = go.Figure()
-            fig3d.add_trace(
-                go.Surface(
-                    x=Hg,
-                    y=Fg,
-                    z=Z,
-                    colorscale="Viridis",
-                    opacity=0.85,
-                    name="surface",
-                    colorbar=dict(title=f"Fitted {metric}"),
-                )
-            )
-            fig3d.add_trace(
-                go.Scatter3d(
-                    x=d["ΔH"],
-                    y=d["F/F00"],
-                    z=d[metric],
-                    mode="markers",
-                    marker=dict(size=4, color="black", opacity=0.6),
-                    name="data",
-                )
-            )
-            fig3d.update_layout(
-                title=f"{metric}: fitted surface over ΔH × F/F00",
-                scene=dict(
-                    xaxis_title="ΔH = H_fuel − H_ref (%)",
-                    yaxis_title="F/F00",
-                    zaxis_title=metric,
-                    domain=dict(x=[0.0, 0.98], y=[0.0, 0.98]),
-                ),
-                autosize=True,
-                height=820,
-                margin=dict(l=0, r=0, t=35, b=0),
-            )
-            figs_3d[metric] = fig3d
-        else:
-            # frames by aromatics bin
-            d = d[np.isfinite(d["Aromatics"])].copy()
-            if len(d) < 12:
-                continue
+    def _empty_surface(metric: str, visible: bool) -> go.Surface:
+        return go.Surface(
+            x=[[np.nan]],
+            y=[[np.nan]],
+            z=[[np.nan]],
+            showscale=False,
+            opacity=0,
+            hoverinfo="skip",
+            name="no fitted surface: too few points",
+            visible=visible,
+        )
 
-            # quantile bins (same as above but recompute on d)
-            arom_vals = d["Aromatics"].to_numpy(float)
-            qs = np.quantile(arom_vals, [0, 1 / 6, 2 / 6, 3 / 6, 4 / 6, 5 / 6, 1])
-            qs = np.unique(qs)
-            if len(qs) < 3:
-                continue
+    def _hover_text(db: pd.DataFrame, metric: str) -> list[str]:
+        cols = [
+            c
+            for c in [
+                "Fuel",
+                "Source",
+                "Engine",
+                "Campaign",
+                "Thrust",
+                "F/F00",
+                "Hydrogen",
+                "Ref Hydrogen",
+                "ΔH",
+                metric,
+            ]
+            if c in db.columns
+        ]
+        text = []
+        for _, row in db[cols].iterrows():
+            lines = []
+            for c in cols:
+                val = row[c]
+                if isinstance(val, float):
+                    val = f"{val:.4g}"
+                lines.append(f"{c}: {val}")
+            text.append("<br>".join(lines))
+        return text
 
-            bins = list(zip(qs[:-1], qs[1:]))
+    def _make_filter_traces(metric: str, label: str, db: pd.DataFrame, visible: bool) -> tuple[go.Surface, go.Scatter3d]:
+        can_fit_surface = (
+            len(db) >= min_surface_points
+            and db["ΔH"].nunique(dropna=True) >= 3
+            and db["F/F00"].nunique(dropna=True) >= 3
+        )
 
-            # common grids
-            Hgrid = np.linspace(d["ΔH"].min(), d["ΔH"].max(), 35)
-            Fgrid = np.linspace(d["F/F00"].min(), d["F/F00"].max(), 35)
-            Hg, Fg = np.meshgrid(Hgrid, Fgrid)
-
-            base = go.Figure()
-
-            frames = []
-            for lo, hi in bins:
-                db = d[(d["Aromatics"] >= lo) & (d["Aromatics"] <= hi)].copy()
-                if len(db) < 10:
-                    continue
+        if can_fit_surface:
+            try:
                 beta = _fit_poly2_surface(
                     db["ΔH"].to_numpy(float),
                     db["F/F00"].to_numpy(float),
                     db[metric].to_numpy(float),
                 )
+                Hgrid = np.linspace(db["ΔH"].min(), db["ΔH"].max(), 40)
+                Fgrid = np.linspace(db["F/F00"].min(), db["F/F00"].max(), 40)
+                Hg, Fg = np.meshgrid(Hgrid, Fgrid)
                 Z = _predict_poly2(beta, Hg.ravel(), Fg.ravel()).reshape(Hg.shape)
-
-                frame_name = f"{lo:.2f}–{hi:.2f}%"
-                frames.append(
-                    go.Frame(
-                        name=frame_name,
-                        data=[
-                            go.Surface(
-                                x=Hg,
-                                y=Fg,
-                                z=Z,
-                                colorscale="Viridis",
-                                opacity=0.85,
-                                colorbar=dict(title=f"Fitted {metric}"),
-                            ),
-                            go.Scatter3d(
-                                x=db["ΔH"],
-                                y=db["F/F00"],
-                                z=db[metric],
-                                mode="markers",
-                                marker=dict(size=4, color="black", opacity=0.6),
-                            ),
-                        ],
-                    )
+                surface = go.Surface(
+                    x=Hg,
+                    y=Fg,
+                    z=Z,
+                    colorscale="Viridis",
+                    opacity=0.85,
+                    name=f"{label}: fitted surface",
+                    colorbar=dict(title=f"Fitted {metric}"),
+                    visible=visible,
                 )
+            except Exception:
+                surface = _empty_surface(metric, visible)
+        else:
+            surface = _empty_surface(metric, visible)
 
-            if not frames:
+        scatter = go.Scatter3d(
+            x=db["ΔH"],
+            y=db["F/F00"],
+            z=db[metric],
+            mode="markers",
+            marker=dict(size=4.5, color="black", opacity=0.7),
+            text=_hover_text(db, metric),
+            hovertemplate="%{text}<extra></extra>",
+            name=f"{label}: data (n={len(db)})",
+            visible=visible,
+        )
+        return surface, scatter
+
+    for metric in ycols:
+        cols = [
+            c
+            for c in [
+                "ΔH",
+                "F/F00",
+                metric,
+                "Engine",
+                "Campaign",
+                "Fuel",
+                "Source",
+                "Thrust",
+                "Hydrogen",
+                "Ref Hydrogen",
+            ]
+            if c in df.columns
+        ]
+        d = df[cols].copy()
+        d = d[np.isfinite(d[metric]) & np.isfinite(d["ΔH"]) & np.isfinite(d["F/F00"])].copy()
+        # avoid log(0)
+        d = d[d[metric] > 0]
+        if len(d) < 3:
+            continue
+
+        filter_specs: list[tuple[str, pd.DataFrame]] = [("All data", d)]
+        for group_col in ["Engine", "Campaign"]:
+            if group_col not in d.columns:
                 continue
+            for value in sorted(d[group_col].dropna().unique(), key=_sort_key):
+                if not _valid_group_value(value):
+                    continue
+                db = d[d[group_col].astype(str) == str(value)].copy()
+                if len(db) < 3:
+                    continue
+                filter_specs.append((f"{group_col}: {value}", db))
 
-            # init with first frame
-            base.add_trace(frames[0].data[0])
-            base.add_trace(frames[0].data[1])
-            base.frames = frames
+        fig3d = go.Figure()
+        buttons = []
+        for i, (label, db) in enumerate(filter_specs):
+            visible = i == 0
+            surface, scatter = _make_filter_traces(metric, label, db, visible)
+            fig3d.add_trace(surface)
+            fig3d.add_trace(scatter)
 
-            slider_steps = []
-            for fr in frames:
-                slider_steps.append(
-                    {
-                        "method": "animate",
-                        "label": fr.name,
-                        "args": [[fr.name], {"frame": {"duration": 0, "redraw": True}, "mode": "immediate"}],
-                    }
-                )
-
-            base.update_layout(
-                title=f"{metric}: fitted surface over ΔH × F/F00 (slider = aromatics bin)",
-                scene=dict(xaxis_title="ΔH = H_fuel − H_ref (%)", yaxis_title="F/F00", zaxis_title=metric),
-                margin=dict(l=0, r=0, t=50, b=0),
-                sliders=[{"active": 0, "steps": slider_steps, "x": 0.05, "len": 0.9, "y": 0.02}],
+        for i, (label, db) in enumerate(filter_specs):
+            visible = [False] * (2 * len(filter_specs))
+            visible[2 * i] = True
+            visible[2 * i + 1] = True
+            surface_note = "surface fit" if len(db) >= min_surface_points else "markers only"
+            buttons.append(
+                {
+                    "method": "update",
+                    "label": f"{label} (n={len(db)})",
+                    "args": [
+                        {"visible": visible},
+                        {"title": f"{metric}: ΔH × F/F00 — {label} ({surface_note})"},
+                    ],
+                }
             )
-            figs_3d[metric] = base
+
+        fig3d.update_layout(
+            title=f"{metric}: ΔH × F/F00 — All data (surface fit)",
+            scene=dict(
+                xaxis_title="ΔH = H_fuel − H_ref (%)",
+                yaxis_title="F/F00",
+                zaxis_title=metric,
+                domain=dict(x=[0.0, 0.98], y=[0.0, 0.94]),
+            ),
+            updatemenus=[
+                {
+                    "buttons": buttons,
+                    "direction": "down",
+                    "showactive": True,
+                    "x": 0.01,
+                    "xanchor": "left",
+                    "y": 1.04,
+                    "yanchor": "top",
+                }
+            ],
+            annotations=[
+                {
+                    "text": "Filter 3D plot by engine or campaign",
+                    "x": 0.01,
+                    "xref": "paper",
+                    "y": 1.08,
+                    "yref": "paper",
+                    "showarrow": False,
+                    "align": "left",
+                    "font": {"size": 12},
+                }
+            ],
+            autosize=True,
+            height=860,
+            margin=dict(l=0, r=0, t=85, b=0),
+        )
+        figs_3d[metric] = fig3d
 
     # ---- write a single HTML with both views (+ optional constrained-fit summary) ----
     out_html.parent.mkdir(parents=True, exist_ok=True)
@@ -590,7 +645,7 @@ def build_interactive(df: pd.DataFrame, out_html: Path, outdir: Path | None = No
 <body>
   <h2>nvPM interactive explorer</h2>
   <p>Scatter: x-axis is change in hydrogen content from the reference fuel (ΔH = H_fuel − H_ref), y-axis is relative nvPM EIn number, and point color is thrust (F/F00). Hover over each point for fuel, engine, and campaign.<br/>
-     3D surface: ΔH × F/F00 surface with no aromatics binning. In the relative nvPM EIn and mBC 3D plots, the color bar shows the fitted relative EI value on the surface.</p>
+     3D surface: ΔH × F/F00 surface with no aromatics binning. Use the dropdown above each relative nvPM EIn/mBC 3D plot to filter to all data, one engine, or one campaign. The color bar shows the fitted relative EI value on the surface; small filtered groups show markers only if there are too few points for a stable surface.</p>
   <div class="block">{scatter}</div>
   {functions_explainer}
   {parity_plots}

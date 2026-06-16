@@ -1,0 +1,238 @@
+================================================================================
+TARGETED LITERATURE SEARCH KEYWORDS FOR JET FUEL nvPM EMISSIONS
+================================================================================
+
+Use these exact strings in Google Scholar, ResearchGate, NTRS, Scopus
+
+================================================================================
+SECTION A: CAMPAIGNS YOU MIGHT BE MISSING
+================================================================================
+
+ECLIF1 (early phase):
+  "ECLIF black carbon" 2010 2011
+  "Voigt ECLIF particle number"
+  "ECLIF A340 ATR72"
+  site:ntrs.nasa.gov ECLIF 2010
+
+AAFEX Complete Data:
+  "AAFEX complete data" OR "AAFEX-I final report"
+  "AAFEX test matrix" nvPM hydrogen
+  site:ntrs.nasa.gov AAFEX Moore
+
+SAMPLE (early campaigns):
+  "SAMPLE campaign" Lobo 2010 2011 2012
+  "Sustainable Aviation Fuels test" NASA nvPM
+  "SAMPLE fuel properties" emission index
+
+Corporan aromatic studies (direct aromatic control):
+  "Corporan" "aromatic" "emission index"
+  "aromatic content" soot Corporan AFOSR
+  site:researchgate.net Corporan fuel aromatic
+
+DLR SWING combustor (direct aromaticity control):
+  "SWING combustor" aromatics soot
+  "Lauer" "SWING" combustor
+  "Will" DLR aromatics combustion
+  site:dlr.de SWING aromatics
+
+MIT / Timko fuel studies:
+  "Timko" "hydrogen content" nvPM
+  "MIT alternative fuel" black carbon
+  site:ntrs.nasa.gov Timko fuel
+
+AVIATOR / INFL (infrared contrail):
+  "AVIATOR infrared contrail"
+  "INFL contrail" NASA particle
+  "infrared non-volatile particle"
+
+================================================================================
+SECTION B: FUNCTIONAL FORMS & EMPIRICAL MODELS
+================================================================================
+
+For papers that FIT correlations (not just measure):
+
+  "emission index" "correlation" "fuel properties"
+  "empirical model" nvPM "hydrogen content"
+  "predictive model" "black carbon" "fuel aromatic"
+  "nvPM EIn" "function" thrust hydrogen
+
+Threshold Sooting Index (maps composition → sooting):
+  "threshold sooting index" jet fuel
+  "Dewitte" soot aromatic
+  "Fuentes" TSI aromatic
+  "Gupta" threshold sooting
+  "smoke point" correlation soot
+
+ICAO / Regulatory models:
+  "ICAO CAEP" nvPM data compilation
+  "EASA" "PM emissions" functional form
+  "SAE AIR6241" nvPM measurement
+  "ICAO emissions databank"
+
+================================================================================
+SECTION C: SPECIFIC FUEL BLENDS & PROPERTIES
+================================================================================
+
+For studies reporting aromatics + H + nvPM together:
+
+  "HEFA" "hydrogen content" emission
+  "FT fuel" "aromatic" particle
+  "SAF blend" "fuel properties" nvPM
+  "GTL" "low aromatic" emission
+  "100% FT" hydrogen soot
+
+Sulfur & aromatic variation:
+  "sulfur" "aromatic" "hydrogen" nvPM
+  "fuel composition" combustor emissions
+  "jet fuel surrogate" aromatics
+
+================================================================================
+SECTION D: AUTHORS TO FOLLOW (ResearchGate / Google Scholar)
+================================================================================
+
+High-confidence researchers with datasets:
+
+  Voigt (DLR, ECLIF lead)
+  Moore (NASA Glenn, AAFEX/ACCESS lead)
+  Brem (ETH Zurich, particle emission)
+  Schripp (DLR, ECLIF2)
+  Corporan (AFOSR, aromatic direct control)
+  Durdina (ETH, rig studies)
+  Lobo (NASA, SAF test lead)
+  Timko (MIT, long-running SAF)
+  Stordal (University of Oslo, contrail/fuel)
+  Dewitte (aromatics expert)
+  Fuentes (aromatic mechanisms)
+  Colket (ICAO/combustion, NASA Glenn)
+
+Search pattern: site:researchgate.net [Author] nvPM
+               site:scholar.google.com [Author] aromatic emission
+
+================================================================================
+SECTION E: VENUES & REPOSITORIES
+================================================================================
+
+Google Scholar filters:
+  site:scholar.google.com nvPM "hydrogen content" 2015-2024
+  site:scholar.google.com "emission index" "aromatics" 2010-2024
+
+NASA NTRS (technical reports):
+  site:ntrs.nasa.gov nvPM fuel properties
+  site:ntrs.nasa.gov "jet fuel" emissions data
+  site:ntrs.nasa.gov AAFEX Moore Timko
+
+ResearchGate (preprints, author pages):
+  site:researchgate.net Voigt ECLIF
+  site:researchgate.net Brem particle emission
+  site:researchgate.net Durdina nvPM
+
+ACS Publications:
+  site:pubs.acs.org "environmental science" jet fuel aromatic
+  site:pubs.acs.org "energy fuels" nvPM
+
+Atm. Chem. Phys. (open access):
+  site:atmos-chem-phys.net contrail emissions
+  site:atmos-chem-phys.net particle number
+
+Journal of Geophysical Research:
+  site:agupubs.onlinelibrary.wiley.com JGR nvPM flight
+
+================================================================================
+SECTION F: SPECIFIC PAPER SEARCHES (HIGH CONFIDENCE)
+================================================================================
+
+Known papers you likely want to track down:
+
+1. Moore et al. (2015) "AAFEX-I" – ground testing, comprehensive blends
+   → Search: "AAFEX-I measurements"
+
+2. Lobo et al. (2015) "SAMPLE" – complete fuel matrix
+   → Search: "SAMPLE fuel properties table"
+
+3. Corporan et al. (2010–2012) – AFOSR aromatic direct control
+   → Search: "Corporan aromatic jet fuel"
+
+4. Voigt et al. (ECLIF1, ECLIF2) – high-altitude SAF
+   → Search: "Voigt ECLIF"
+
+5. Durdina et al. (2020–2021) – ETH rig, fuel composition detail
+   → Search: "Durdina fuel composition"
+
+6. Brem et al. (2015) – A-PRIDE flight, particle metrics
+   → Search: "Brem A-PRIDE"
+
+7. Schripp et al. (ECLIF2) – DLR SAF testing
+   → Search: "Schripp ECLIF2"
+
+8. Markl et al. (2024) – ECLIF3 latest
+   → Search: "Markl ECLIF3"
+
+================================================================================
+SECTION G: GREY LITERATURE / REPORTS
+================================================================================
+
+Non-peer-reviewed but data-rich:
+
+  ICAO meeting documents:
+    "CAEP WG3" nvPM data
+    "ICAO CAEP" meeting minutes agenda
+    
+  FAA technical reports:
+    site:faa.gov "emission index"
+    site:faa.gov nvPM fuel
+    
+  DLR publications:
+    site:dlr.de nvPM SAF
+    site:dlr.de aromatic
+    
+  SAF standardization / database:
+    "ASTM D7566" fuel property table
+    "SAF working group" database
+    "alternative fuel properties"
+
+  Manufacturer white papers:
+    "GE SAF" emissions
+    "CFM LEAP" alternative fuel
+    "Rolls-Royce" SAF test
+
+================================================================================
+SECTION H: COMBINED SEARCH STRINGS (PASTE INTO GOOGLE SCHOLAR)
+================================================================================
+
+1. nvPM EIn hydrogen content fuel
+2. "emission index" aromatic "alternative jet fuel"
+3. "non-volatile PM" "hydrogen content" correlation
+4. "black carbon" "fuel properties" jet engine
+5. "soot mass index" hydrogen aromatic
+6. "particle number index" SAF blend
+7. "threshold sooting index" jet fuel aromatic
+8. ECLIF black carbon emission index
+9. AAFEX-I AAFEX-II nvPM fuel
+10. Corporan fuel aromatic soot
+
+================================================================================
+YOUR SEARCH STRATEGY (Recommended order)
+================================================================================
+
+Day 1-2 (Quick wins, ~2 hours):
+  - Run 10 combined searches on Google Scholar, export results
+  - Sort by year (2015+), relevance, author
+  - Download 20-30 PDFs most likely to have tables
+
+Day 3-5 (Targeted, ~3 hours):
+  - Search each major author on ResearchGate
+  - Check their "recent publications" + "datasets"
+  - Download papers from NTRS directly (often complete data)
+
+Week 2 (Comprehensive, ~4-5 hours):
+  - Systematic: for each campaign (AAFEX, ECLIF, ACCESS, SAMPLE)
+    search "[Campaign] complete data" OR "[Campaign] final report"
+  - Check each author's group website for technical reports
+  - Email 2-3 lead authors: "Do you have complete fuel property tables?"
+
+Expected yield:
+  Day 1-2: 20-30 new points (if papers have extractable tables)
+  Week 2: 80-150 new points (from campaigns you have partial data on)
+  Total realistic: +100-150 rows in 1-2 weeks
+
+================================================================================

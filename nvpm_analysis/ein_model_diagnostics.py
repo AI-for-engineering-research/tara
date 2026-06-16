@@ -28,6 +28,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import least_squares
 from sklearn.metrics import mean_absolute_error, r2_score
+from sklearn.model_selection import GroupKFold, KFold
 
 from model_selection_nvpm_ein import (
     ICAOExp,
@@ -44,6 +45,22 @@ from model_selection_nvpm_ein import (
 
 def rmse(y, yhat):
     return float(np.sqrt(np.mean((y - yhat) ** 2)))
+
+
+def safe_log(y: np.ndarray) -> np.ndarray:
+    eps = np.nanmin(y[y > 0]) * 0.5 if np.any(y > 0) else 1e-6
+    return np.log(np.clip(y, eps, None))
+
+
+def cv_metrics(y: np.ndarray, yhat: np.ndarray) -> dict[str, float]:
+    finite = np.isfinite(y) & np.isfinite(yhat) & (y > 0) & (yhat > 0)
+    if np.sum(finite) < 2:
+        return {"rmse_log": np.nan, "rmse": np.nan, "r2": np.nan}
+    return {
+        "rmse_log": rmse(safe_log(y[finite]), safe_log(yhat[finite])),
+        "rmse": rmse(y[finite], yhat[finite]),
+        "r2": float(r2_score(y[finite], yhat[finite])),
+    }
 
 
 def bootstrap_residual_band(y: np.ndarray, yhat: np.ndarray, resid: np.ndarray, nboot: int, seed: int = 42):
@@ -64,6 +81,8 @@ def main() -> None:
     ap.add_argument("--outdir", default="nvpm_analysis_outputs")
     ap.add_argument("--nboot", type=int, default=1000)
     ap.add_argument("--seed", type=int, default=42)
+    ap.add_argument("--cv-folds", type=int, default=5, help="Number of folds for row-wise and grouped CV diagnostics.")
+    ap.add_argument("--cv-repeats", type=int, default=20, help="Number of repeated row-wise K-fold CV splits.")
     args = ap.parse_args()
 
     outdir = Path(args.outdir)
@@ -166,6 +185,15 @@ def main() -> None:
         "quad_rational": spec_qr,
         "quad_rational_constrained": spec_qr,
     }
+    model_categories = {
+        "icao_family_exp": "physical_candidate",
+        "mechanistic_icao_ratio": "physical_candidate",
+        "power_law_exp": "physical_candidate",
+        "saturating_exp": "physical_candidate",
+        "quad_rational": "physical_candidate",
+        "quad_rational_constrained": "physical_candidate",
+        "log_poly2": "semi_flexible_empirical_benchmark",
+    }
 
     def _predict_model(name: str, p: np.ndarray, Hv: np.ndarray, Fv: np.ndarray) -> np.ndarray:
         return specs_by_name[name].predict(p, Hv, Fv)
@@ -202,6 +230,90 @@ def main() -> None:
     pairs = (engine + " / " + campaign).to_numpy()
     pair_list = np.unique(pairs)
     marker_dict = build_marker_dict(pairs)
+
+    def _fit_predict_for_cv(name: str, tr: np.ndarray, te: np.ndarray) -> np.ndarray:
+        spec = specs_by_name[name]
+        if name == "quad_rational_constrained":
+            p_cv = fit_quad_rational_constrained(
+                H[tr],
+                F[tr],
+                y[tr],
+                H_range=H_range,
+                seed=args.seed,
+                H_ref=H_ref[tr],
+                n_restarts=20,
+            )
+        else:
+            p_cv = fit_least_squares_ratio(spec, H[tr], H_ref[tr], F[tr], y[tr])
+        return spec.predict_ratio(p_cv, H[te], H_ref[te], F[te])
+
+    def _summarize_cv_rows(rows: list[dict[str, float | str | int]]) -> pd.DataFrame:
+        cv = pd.DataFrame(rows)
+        metric_cols = ["rmse_log", "rmse", "r2"]
+        grouped = (
+            cv.groupby(["validation", "model", "display_name", "category"], dropna=False)[metric_cols]
+            .agg(["mean", "std", "min", "max", "count"])
+            .reset_index()
+        )
+        grouped.columns = ["_".join([str(x) for x in col if str(x)]) for col in grouped.columns.to_flat_index()]
+        return grouped.sort_values(["validation", "category", "rmse_log_mean", "rmse_mean"]).reset_index(drop=True)
+
+    cv_rows: list[dict[str, float | str | int]] = []
+    cv_model_names = list(specs_by_name)
+    for repeat in range(args.cv_repeats):
+        kf = KFold(n_splits=args.cv_folds, shuffle=True, random_state=args.seed + repeat)
+        for fold, (tr, te) in enumerate(kf.split(H)):
+            for name in cv_model_names:
+                try:
+                    yhat_cv = _fit_predict_for_cv(name, tr, te)
+                    metrics = cv_metrics(y[te], yhat_cv)
+                except Exception:
+                    metrics = {"rmse_log": np.nan, "rmse": np.nan, "r2": np.nan}
+                cv_rows.append(
+                    {
+                        "validation": "rowwise_repeated_kfold",
+                        "repeat": repeat,
+                        "fold": fold,
+                        "model": name,
+                        "display_name": display_names[name],
+                        "category": model_categories.get(name, "uncategorized"),
+                        **metrics,
+                    }
+                )
+
+    for group_col in ["Campaign", "Source"]:
+        if group_col not in d.columns:
+            continue
+        groups = d[group_col].astype(str).fillna("missing").to_numpy()
+        n_groups = len(np.unique(groups))
+        if n_groups < 2:
+            continue
+        gkf = GroupKFold(n_splits=min(args.cv_folds, n_groups))
+        for fold, (tr, te) in enumerate(gkf.split(H, y, groups=groups)):
+            held_out = ";".join(sorted(np.unique(groups[te])))
+            for name in cv_model_names:
+                try:
+                    yhat_cv = _fit_predict_for_cv(name, tr, te)
+                    metrics = cv_metrics(y[te], yhat_cv)
+                except Exception:
+                    metrics = {"rmse_log": np.nan, "rmse": np.nan, "r2": np.nan}
+                cv_rows.append(
+                    {
+                        "validation": f"grouped_kfold_by_{group_col.lower()}",
+                        "repeat": 0,
+                        "fold": fold,
+                        "held_out_groups": held_out,
+                        "model": name,
+                        "display_name": display_names[name],
+                        "category": model_categories.get(name, "uncategorized"),
+                        **metrics,
+                    }
+                )
+
+    cv_detail = pd.DataFrame(cv_rows)
+    cv_summary = _summarize_cv_rows(cv_rows)
+    cv_detail.to_csv(outdir / "ein_cv_diagnostics_detail.csv", index=False)
+    cv_summary.to_csv(outdir / "ein_cv_diagnostics_summary.csv", index=False)
 
     import matplotlib.pyplot as plt
 
@@ -552,6 +664,11 @@ def main() -> None:
 
     print(f"Wrote diagnostics to: {outdir}")
     print(summary[["display_name", "r2", "rmse", "mae", "n"]].to_string(index=False))
+    print("\nCV diagnostics: mean ± SD across folds/repeats. Row-wise CV assesses pooled interpolation; grouped CV is a robustness diagnostic for systematic campaign/source heterogeneity.")
+    for validation, block in cv_summary.groupby("validation"):
+        print(f"\n{validation}")
+        compact = block[["category", "display_name", "rmse_log_mean", "rmse_log_std", "rmse_mean", "rmse_std", "r2_mean", "r2_std"]].copy()
+        print(compact.to_string(index=False))
 
 
 if __name__ == "__main__":

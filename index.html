@@ -211,6 +211,15 @@
         <p style="margin:10px 0 12px 0; color:#4b5563;">Interactive plots, model diagnostics, fitted-function comparisons, and bootstrap confidence bands for relative nvPM EIn and mBC.</p>
         <a href="nvpm_analysis_outputs/nvpm_interactive.html" style="display:inline-block; padding: 10px 12px; border-radius: 999px; background: rgba(29,78,216,0.10); border: 1px solid rgba(29,78,216,0.22); text-decoration: none; font-weight: 750; color:#1d4ed8;">Open nvPM analysis</a>
       </div>
+
+      <div style="margin-top: 14px; border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+        <div style="display:flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+          <h3 style="margin:0;">Low aromatic fuel visual explainer</h3>
+          <div style="font-size: 13px; color:#64748b;">New</div>
+        </div>
+        <p style="margin:10px 0 12px 0; color:#4b5563;">A website-based visual explainer created using the visual annotator tool.</p>
+        <a href="low-aromatic-fuel-project/low-aromatic-visual-explainer.html" style="display:inline-block; padding: 10px 12px; border-radius: 999px; background: rgba(29,78,216,0.10); border: 1px solid rgba(29,78,216,0.22); text-decoration: none; font-weight: 750; color:#1d4ed8;">Open visual explainer</a>
+      </div>
     </section>
 
     <hr class="section-divider" />
@@ -228,6 +237,86 @@
           <p style="margin:10px 0 0 0; color:#4b5563;">Website improvements + early research workflow experiments using pi skills.</p>
         </div>
       </a>
+
+      <div style="height: 12px;"></div>
+
+      <a href="weekly-updates/week-2.html" style="display:block; text-decoration:none; color:inherit;">
+        <div style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+          <div style="display:flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;">
+            <h3 style="margin:0;">📝 Week 2</h3>
+            <div style="font-size: 13px; color:#64748b;">June 16, 2026</div>
+          </div>
+          <p style="margin:10px 0 0 0; color:#4b5563;">Literature review strategy pivot for nvPM emissions campaigns + thrust-normalized dataset requirements.</p>
+        </div>
+      </a>
+
+
+            <h4 style="margin: 10px 0 6px 0; color:#111827;">Problem identified</h4>
+            <p style="margin:0;">Many sources in the literature list are combustor rig studies that lack real thrust values. Without thrust values (idle 15%, cruise 85%, max 100%), data can’t be normalized properly, so these papers can’t contribute usable data points for the current modeling approach.</p>
+
+            <h4 style="margin: 14px 0 6px 0; color:#111827;">Literature classification</h4>
+            <h5 style="margin: 10px 0 6px 0; color:#111827;">✅ Keep (real engine/flight thrust data)</h5>
+            <ol style="margin: 0 0 0 18px;">
+              <li><strong>Voigt 2024</strong> — ECLIF2 flight campaign; Airbus A350 (Rolls-Royce Trent XWB-84); thrust: 85% cruise; status: data extracted.</li>
+              <li><strong>Durdina series (2019–2021)</strong> — real engine/APU tests; expected: 35–55 data points; likely to document thrust settings.</li>
+              <li><strong>AAFEX campaign (Moore et al.)</strong> — real engines with documented thrust data; expected: 20–40+ data points; access: NASA NTRS (fully public).</li>
+              <li><strong>SAMPLE campaign (Benito et al. 2025)</strong> — multi-year program with real engine testing; likely has thrust documentation; expected: 20–30 data points.</li>
+              <li><strong>Flight campaign series</strong> — ECLIF, A-PRIDE, ACCESS (flight-based with real thrust values); lead authors include Voigt (ECLIF) and Brem (A-PRIDE).</li>
+            </ol>
+
+            <h5 style="margin: 12px 0 6px 0; color:#111827;">❌ Deprioritize (lab combustor rigs without thrust data)</h5>
+            <ul style="margin: 0 0 0 18px;">
+              <li>Harper 2022 — RQL combustor (no real thrust)</li>
+              <li>Harper 2024 — RQL combustor (no real thrust)</li>
+              <li>Smith 2024 — combustor rig (no real thrust)</li>
+              <li>Brem 2015 — lab-based (likely combustor, not flight)</li>
+              <li>Gierens 2024 — literature review (may primarily cite rig data)</li>
+            </ul>
+
+            <h4 style="margin: 14px 0 6px 0; color:#111827;">Action items</h4>
+            <ol style="margin: 0 0 0 18px;">
+              <li>Reprioritize search strategy: focus on AAFEX, ECLIF, SAMPLE campaigns first.</li>
+              <li>Search NASA NTRS for AAFEX (Moore et al.) complete data.</li>
+              <li>Search DLR/ACP for ECLIF (Voigt/Schripp) papers with flight thrust data.</li>
+              <li>Check Cardiff ORCA for SAMPLE (Benito 2025) deliverable.</li>
+            </ol>
+
+            <h4 style="margin: 14px 0 6px 0; color:#111827;">Search queries to try</h4>
+            <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>Google Scholar:
+- "AAFEX" "Moore" nvPM hydrogen site:ntrs.nasa.gov
+- site:acp.copernicus.org "Voigt" ECLIF nvPM fuel
+- "SAMPLE campaign" hydrogen content site:ntrs.nasa.gov
+- "A-PRIDE" Brem aromatic emissions
+
+ResearchGate:
+- Ulrich Voigt (ECLIF lead)
+- Mark Moore (AAFEX lead)</code></pre>
+
+            <h4 style="margin: 14px 0 6px 0; color:#111827;">Expected data yield (revised plan)</h4>
+            <ul style="margin: 0 0 0 18px;">
+              <li>Voigt 2024: 1 point (done)</li>
+              <li>Durdina 2019–2021: 35–55 points</li>
+              <li>AAFEX campaign: 20–40 points</li>
+              <li>SAMPLE campaign: 20–30 points</li>
+              <li>ECLIF/A-PRIDE/ACCESS campaigns: 30–50 points</li>
+            </ul>
+            <p style="margin: 8px 0 0 0;"><strong>Total realistic:</strong> 106–176 points with real thrust values.</p>
+
+            <h4 style="margin: 14px 0 6px 0; color:#111827;">Next steps</h4>
+            <ol style="margin: 0 0 0 18px;">
+              <li>Create revised literature priority list focused on engine/flight campaigns.</li>
+              <li>Design project visualization showing literature → data extraction → model improvement.</li>
+              <li>Begin AAFEX search (highest expected yield per hour of work).</li>
+              <li>Verify paper types before extracting (confirm thrust documentation).</li>
+            </ol>
+
+            <h4 style="margin: 14px 0 6px 0; color:#111827;">Notes</h4>
+            <ul style="margin: 0 0 0 18px;">
+              <li>Lab rig data isn’t useless—just not suitable for this model’s thrust normalization needs.</li>
+              <li>Combustor studies might be useful later for different analysis (e.g., fuel composition trends without thrust normalization).</li>
+              <li>Flight campaign data is “gold”: real-world conditions + thrust documentation = cleanest data.</li>
+            </ul>
+
 
     </section>
 
