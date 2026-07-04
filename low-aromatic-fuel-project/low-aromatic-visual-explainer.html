@@ -551,8 +551,8 @@
         <text x="104" y="148" class="sub">Outputs: energy + material inputs</text>
         <text x="104" y="166" class="sub">Unit-level demands</text>
 
-        <rect x="308" y="70" width="80" height="22" rx="11" class="done-pill"/>
-        <text x="348" y="85" text-anchor="middle" class="chip done-text">current</text>
+        <rect x="354" y="62" width="80" height="22" rx="11" class="done-pill"/>
+        <text x="394" y="77" text-anchor="middle" class="chip done-text">current</text>
 
         <rect x="40" y="188" width="400" height="96" rx="14" class="node-ref"/>
         <!-- Icon: fuel droplet -->
@@ -561,6 +561,9 @@
           <path d="M4 30 C6 34 10 36 14 36" opacity="0.55" />
         </g>
         <text x="104" y="218" class="title">Fuel property changes</text>
+
+        <rect x="354" y="194" width="80" height="22" rx="11" class="done-pill"/>
+        <text x="394" y="209" text-anchor="middle" class="chip done-text">current</text>
         <text x="104" y="238" class="sub">Aromatics ↓ ; sulfur reduction / possible RF tradeoff</text>
         <text x="104" y="258" class="sub">Supports combustion/emissions parameterization</text>
 
@@ -572,7 +575,10 @@
           <path d="M18 24 C18 20 22 16 28 16" opacity="0.55" />
         </g>
         <text x="112" y="350" class="title">Added refinery CO₂ emissions</text>
-        <text x="112" y="370" class="sub">Treatment energy + hydrogen source: SMR vs electrolysis</text>
+
+        <rect x="354" y="326" width="80" height="22" rx="11" class="done-pill"/>
+        <text x="394" y="341" text-anchor="middle" class="chip done-text">current</text>
+        <text x="112" y="370" class="sub">Treatment energy + H2 source: SMR vs electrolysis</text>
         <text x="112" y="390" class="sub">Lifecycle boundary for production-stage emissions</text>
 
         <rect x="40" y="452" width="400" height="96" rx="14" class="node-cba"/>
@@ -584,6 +590,9 @@
           <path d="M14 40 H42" />
         </g>
         <text x="112" y="482" class="title">Incremental production cost (Δ cost)</text>
+
+        <rect x="354" y="458" width="80" height="22" rx="11" class="done-pill"/>
+        <text x="394" y="473" text-anchor="middle" class="chip done-text">current</text>
         <text x="112" y="502" class="sub">TEA from material + energy inputs (CAPEX/OPEX)</text>
         <text x="112" y="522" class="sub">Scenario-dependent by pathway + H₂ assumptions</text>
 
@@ -600,6 +609,9 @@
           <path d="M44 16 C52 16 56 12 58 6" opacity="0.35" />
         </g>
         <text x="608" y="86" class="title">Combustion / emissions impacts</text>
+
+        <rect x="844" y="62" width="80" height="22" rx="11" class="done-pill"/>
+        <text x="884" y="77" text-anchor="middle" class="chip done-text">current</text>
         <text x="608" y="104" class="title" style="font-size: 12.5px; font-weight: 680;">(literature)</text>
         <text x="608" y="128" class="sub">Particulate emissions ↓</text>
         <text x="608" y="146" class="sub">Plume microphysics shifts</text>
@@ -674,18 +686,22 @@
         <!-- Orthogonal connectors routed through whitespace lanes only -->
         <!-- NOTE: coordinates are chosen to avoid intersecting node boxes. -->
 
+        <!-- Refinery process models (pathways) -> downstream boxes (route left, down, then right into each box) -->
+        <path d="M40 112 H28 Q20 112 20 120 V224 Q20 232 28 232 H40" class="cap" stroke="var(--refinery)" stroke-width="2" fill="none" marker-end="url(#arrow-ref)"/>
+        <path d="M40 112 H28 Q20 112 20 120 V358 Q20 366 28 366 H40" class="cap" stroke="var(--refinery)" stroke-width="2" fill="none" marker-end="url(#arrow-ref)"/>
+        <path d="M40 112 H28 Q20 112 20 120 V492 Q20 500 28 500 H40" class="cap" stroke="var(--refinery)" stroke-width="2" fill="none" marker-end="url(#arrow-ref)"/>
 
-        <!-- Fuel property changes -> Combustion / emissions impacts (straight through whitespace; rounded not needed) -->
-        <path d="M456 232 H532" class="cap" stroke="var(--refinery)" stroke-width="2" fill="none" marker-end="url(#arrow-ref)"/>
+        <!-- Fuel property changes -> Combustion / emissions impacts (blue; exit mid-right of fuel box, jog up, then right into combustion) -->
+        <path d="M440 232 H472 Q484 232 484 220 V120 Q484 108 496 108 H532" class="cap" stroke="var(--refinery)" stroke-width="2" fill="none" marker-end="url(#arrow-ref)"/>
 
-        <!-- Added refinery CO₂ emissions -> Climate impacts (stay in whitespace; rounded) -->
-        <path d="M456 368 H500 Q512 368 512 356 V366 Q512 354 524 354 H532" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
+        <!-- Added refinery CO₂ emissions -> Climate impacts (perfectly horizontal) -->
+        <path d="M440 372 H532" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
 
         <!-- Combustion / emissions impacts (literature) -> Air-quality impacts (down inside middle column whitespace) -->
         <path d="M732 168 V188" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
 
-        <!-- Combustion / emissions impacts (literature) -> Climate impacts (route around Air-quality box via internal gutter; rounded) -->
-        <path d="M768 168 V180 Q768 188 776 188 H952 Q964 188 964 200 V320" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
+        <!-- Combustion / emissions impacts (literature) -> Climate impacts (exit left side of combustion; enter right side of climate) -->
+        <path d="M532 120 H508 Q496 120 496 132 V338 Q496 350 508 350 H532" class="cap" stroke="var(--env)" stroke-width="2" fill="none" marker-end="url(#arrow-env)"/>
 
         <!-- Air-quality impacts -> Monetize air-quality impacts (route above via right gutter; rounded) -->
         <path d="M932 236 H980 Q992 236 992 224 V112 Q992 100 1004 100 H1024" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
@@ -693,14 +709,14 @@
         <!-- Climate impacts -> Monetize climate impacts (route through right gutter; rounded) -->
         <path d="M932 366 H980 Q992 366 992 354 V268 Q992 256 1004 256 H1024" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
 
-        <!-- Air-quality monetization -> Net outcomes (down within right column whitespace) -->
-        <path d="M1240 168 V368" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+        <!-- Air-quality monetization -> Net outcomes (exit right side; small right jog; down; left; then down into top of Net outcomes) -->
+        <path d="M1424 112 H1428 Q1440 112 1440 124 V340 Q1440 352 1428 352 H1224 V368" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
 
-        <!-- Climate monetization -> Net outcomes (short drop) -->
-        <path d="M1240 324 V368" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+        <!-- Climate monetization -> Net outcomes (short drop; shifted left) -->
+        <path d="M1104 324 V368" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
 
-        <!-- Incremental production cost (Δ cost) -> Net outcomes (route around boxes along bottom gutter; rounded) -->
-        <path d="M440 500 V540 Q440 552 452 552 H980 Q992 552 992 540 V424 Q992 412 1004 412 H1024" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
+        <!-- Incremental production cost (Δ cost) -> Net outcomes (exit mid-right; go right, then up, then across) -->
+        <path d="M440 500 H980 Q992 500 992 488 V424 Q992 412 1004 412 H1024" class="cap" stroke="var(--cba)" stroke-width="2" fill="none" marker-end="url(#arrow-cba)"/>
 
       </svg>
       <span class="diagram-caption">

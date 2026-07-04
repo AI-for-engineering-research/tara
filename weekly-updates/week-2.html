@@ -12,11 +12,12 @@
 
     <header style="margin: 16px 0 18px 0;">
       <h1 style="margin: 0 0 6px 0;">📝 Week 2</h1>
-      <p style="margin: 0; color:#4b5563;">June 16, 2026</p>
+      <p style="margin: 0; color:#4b5563;">June 16–18, 2026 • + July 18, 2026</p>
     </header>
 
     <section style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
-      <h2 style="margin: 0 0 10px 0; font-size: 18px;">Updates</h2>
+      <h2 style="margin: 0 0 10px 0; font-size: 18px;">June 16, 2026</h2>
+      <h3 style="margin: 0 0 10px 0; font-size: 18px;">Updates</h3>
 
       <p style="margin:10px 0 10px 0; color:#4b5563;">
         <strong>Website visual explainer:</strong> I made this website visual explainer using the visual annotator tool.
@@ -31,13 +32,6 @@
       <details style="margin-top: 14px;">
         <summary style="cursor: pointer;"><strong>Conversation summary: Literature Review Strategy Pivot (June 16, 2026)</strong></summary>
         <div style="margin-top: 10px; color:#4b5563;">
-          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">Problem identified</h3>
-          <p style="margin:0;">
-            The literature sources in QUICK_REFERENCE.md include many combustor rig studies that lack real thrust values.
-            Lab combustor rigs (RQL, combustor test stands) operate at power settings or equivalence ratios, not aircraft thrust percentages.
-            Without real thrust values (idle 15%, cruise 85%, max 100%), data cannot be properly normalized.
-          </p>
-
           <h3 style="margin: 14px 0 6px 0; color:#111827; font-size: 16px;">Literature classification</h3>
 
           <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">✅ Keep — papers with real engine/flight thrust data</h4>
@@ -101,6 +95,281 @@ ResearchGate:
             <li>Combustor studies might be useful later for different analysis (e.g., fuel composition trends without thrust normalization).</li>
             <li>Flight campaign data is “gold”: real-world conditions + thrust documentation = cleanest data.</li>
           </ul>
+        </div>
+      </details>
+
+    </section>
+
+    <section style="margin-top: 14px; border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+      <h2 style="margin: 0 0 10px 0; font-size: 18px;">July 18, 2026</h2>
+      <p style="margin:10px 0 10px 0; color:#4b5563;">
+        <strong>Seal swell analysis:</strong> I used ChatGPT Deep Research to draft a short technical writeup: <em>Seal Swell After Aromatic Saturation in Hydrotreated Jet Fuel</em>
+        (<a href="../Seal Swell After Aromatic Saturation in Hydrotreated Jet Fuel.pdf">PDF</a>).
+      </p>
+      <p style="margin:10px 0 0 0; color:#4b5563;">
+        I also worked on <code>seal_swell_analysis</code> with pi to build a regression workflow modeling O-ring swell as a function of fuel composition (aromatics, N-/iso-paraffins, cyclo-paraffins), comparing linear / ridge / lasso and random forest baselines.
+      </p>
+    </section>
+
+    <section style="margin-top: 14px; border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+      <h2 style="margin: 0 0 10px 0; font-size: 18px;">June 18, 2026</h2>
+      <p style="margin:10px 0 10px 0; color:#4b5563;">
+        <strong>Working with the Improve Codebase Architecture skill:</strong> I used the architecture deepening skill to review the <code>refinery_process_model</code> code and identify refactors that improve testability and AI navigability.
+        I exported the Pi conversation here:
+        <a href="../../MIT%20Dropbox/Tara%20Housen/Aromatics_removal_desulfurization_refining/pi-session-2026-06-16T17-48-04-957Z_019ed18c-2bdd-78d7-9c58-f5bd1a802cb2.html" target="_blank" rel="noopener noreferrer">Open Pi conversation</a>.
+      </p>
+
+      <details style="margin-top: 12px;">
+        <summary style="cursor: pointer;"><strong>PI Session Summary – June 16, 2026</strong></summary>
+        <div style="margin-top: 10px; color:#4b5563;">
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">Purpose of the Session</h3>
+          <p style="margin: 0 0 10px 0;">
+            The primary goal of this session was to refactor the refinery model into a cleaner architecture while preserving existing functionality, especially the hydrotreatment premium calculations.
+          </p>
+
+          <p style="margin: 0 0 6px 0;"><strong>The work focused on:</strong></p>
+          <ul style="margin: 0 0 14px 18px;">
+            <li>Separating model computation from file output generation</li>
+            <li>Creating a reusable scenario-running interface</li>
+            <li>Restoring hydrotreatment premium calculations</li>
+            <li>Eliminating duplicate calculations</li>
+            <li>Introducing automated regression testing</li>
+            <li>Making the codebase easier to run from scripts, notebooks, and batch studies</li>
+          </ul>
+
+          <hr style="margin: 16px 0; border: 0; border-top: 1px solid rgba(15, 23, 42, 0.10);" />
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">1. Architecture Review</h3>
+          <p style="margin: 0 0 6px 0;"><strong>Pi reviewed the following modules:</strong></p>
+          <ul style="margin: 0 0 10px 18px;">
+            <li><code>refinery_process_model/core.py</code></li>
+            <li><code>refinery_process_model/main.py</code></li>
+            <li><code>refinery_process_model/config.py</code></li>
+            <li><code>refinery_process_model/dcf_adapter.py</code></li>
+          </ul>
+          <p style="margin: 0 0 8px 0;">
+            The review concluded that the code should revolve around a single callable scenario function:
+          </p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>result = run_scenario(config)</code></pre>
+          <p style="margin: 8px 0 14px 0;">This function would become the central interface to the model.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">2. Defining the New Architecture</h3>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Core Layer</h4>
+          <p style="margin: 0 0 8px 0;">Responsible only for computations.</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>run_scenario(config)</code></pre>
+          <p style="margin: 0 0 6px 0;"><strong>Produces:</strong></p>
+          <ul style="margin: 0 0 8px 18px;">
+            <li>process results</li>
+            <li>economics</li>
+            <li>utility consumption</li>
+            <li>product properties</li>
+            <li>premiums</li>
+          </ul>
+          <p style="margin: 0 0 14px 0;">without writing files.</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Adapter Layer</h4>
+          <p style="margin: 0 0 6px 0;">Responsible for:</p>
+          <ul style="margin: 0 0 14px 18px;">
+            <li>Excel output</li>
+            <li>plots</li>
+            <li>reports</li>
+            <li>command-line execution</li>
+          </ul>
+          <p style="margin: 0 0 14px 0;">These become wrappers around the core model.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">3. Output Adapter Created</h3>
+          <p style="margin: 0 0 8px 0;">A new module was added:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>refinery_process_model/outputs.py</code></pre>
+          <p style="margin: 0 0 6px 0;"><strong>Purpose:</strong></p>
+          <ul style="margin: 0 0 10px 18px;">
+            <li>Move file-writing logic out of the model core</li>
+            <li>Keep calculations separate from presentation</li>
+            <li>Improve testability</li>
+          </ul>
+          <p style="margin: 0 0 8px 0;">This establishes a cleaner separation between:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>COMPUTATION
+
+OUTPUT GENERATION</code></pre>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">4. Hydrotreatment Premium Calculations Restored</h3>
+          <p style="margin: 0 0 10px 0;">This was the most important functional achievement of the session.</p>
+          <p style="margin: 0 0 8px 0;">Prior to the refactor:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>build_dcf_arg_lists_for_hydrotreatment(...)</code></pre>
+          <p style="margin: 0 0 8px 0;">was incomplete. Parts of the premium calculation pathway still contained:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>raise NotImplementedError(...)</code></pre>
+          <p style="margin: 0 0 14px 0;">making some calculations unusable.</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Added Missing Consumables</h4>
+          <p style="margin: 0 0 6px 0;">Hydrotreatment consumables were expanded to include:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>catalyst_replacement_kg_per_yr
+amine_makeup_lb_per_yr</code></pre>
+          <p style="margin: 8px 0 14px 0;">These were added to utility and operating-cost calculations.</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Added Missing Operating Costs</h4>
+          <p style="margin: 0 0 6px 0;">Hydrotreatment operating costs were extended to include:</p>
+          <ul style="margin: 0 0 10px 18px;">
+            <li>NiMo catalyst replacement</li>
+            <li>Amine makeup costs</li>
+          </ul>
+          <p style="margin: 0 0 14px 0;">using existing price assumptions rather than assuming zero cost.</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Completed DCF Inputs</h4>
+          <p style="margin: 0 0 10px 0;">The DCF input builder was updated so that treated-fuel pathways could generate complete economic input lists.</p>
+          <p style="margin: 0 0 14px 0;"><strong>Result:</strong> Hydrotreatment premium calculations became operational again.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">5. Temporary Legacy Bridge</h3>
+          <p style="margin: 0 0 6px 0;">A temporary compatibility bridge was introduced. Example:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>compute_hydrotreatment_premium_legacy_context()</code></pre>
+          <p style="margin: 8px 0 6px 0;"><strong>Purpose:</strong></p>
+          <ul style="margin: 0 0 10px 18px;">
+            <li>Allow the new architecture to access information still computed in legacy code.</li>
+          </ul>
+          <p style="margin: 0 0 10px 0;">Initially this bridge existed because some calculations still depended on variables buried inside the original workflow.</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Later Removed</h4>
+          <p style="margin: 0 0 6px 0;">As refactoring progressed, the bridge became unnecessary. The following were removed:</p>
+          <ul style="margin: 0 0 14px 18px;">
+            <li><code>legacy_main_extract.py</code></li>
+            <li><code>compute_hydrotreatment_premium_legacy_context()</code></li>
+          </ul>
+          <p style="margin: 0 0 14px 0;">This indicates the architecture moved closer to a proper separation of concerns.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">6. Duplicate Hydrotreatment Calculations Eliminated</h3>
+          <p style="margin: 0 0 10px 0;">Before refactoring, hydrotreatment calculations occurred in multiple locations (risk of divergence).</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Solution</h4>
+          <p style="margin: 0 0 6px 0;">Hydrotreatment is now computed once:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>ht = run_hydrotreatment_slice(...)</code></pre>
+          <p style="margin: 8px 0 6px 0;">The result is then passed downstream.</p>
+          <p style="margin: 0 0 6px 0;"><strong>Benefits:</strong></p>
+          <ul style="margin: 0 0 14px 18px;">
+            <li>Single source of truth</li>
+            <li>Easier debugging</li>
+            <li>Lower risk of inconsistent results</li>
+            <li>Improved maintainability</li>
+          </ul>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">7. Regression Testing Added</h3>
+          <p style="margin: 0 0 10px 0;">The first automated regression test was created. Files added:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>tests_regression_premium.py
+
+test_premium_regression_pytest.py</code></pre>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Purpose</h4>
+          <p style="margin: 0 0 8px 0;">Verify that important economic outputs do not change unexpectedly after future code modifications.</p>
+          <p style="margin: 0 0 6px 0;">Example checks:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>premium_min_per_bbl
+premium_max_per_bbl
+untreated_min_per_bbl</code></pre>
+          <p style="margin: 8px 0 14px 0;">are compared against known-good reference values.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">8. Pytest Infrastructure Installed</h3>
+          <p style="margin: 0 0 8px 0;">Pytest was installed and configured. Files added:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>pytest.ini
+
+test_premium_regression_pytest.py</code></pre>
+          <p style="margin: 8px 0 14px 0;">This establishes a testing framework for future development.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">9. Import Issues Fixed</h3>
+          <p style="margin: 0 0 8px 0;">Testing initially failed due to import-path problems. Example:</p>
+          <p style="margin: 0 0 6px 0;"><strong>Old:</strong></p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>from functions.labor_hours import ...</code></pre>
+          <p style="margin: 8px 0 6px 0;"><strong>New:</strong></p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>from refinery_process_model.functions.labor_hours import ...</code></pre>
+          <p style="margin: 8px 0 6px 0;">After corrections:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>pytest</code></pre>
+          <p style="margin: 8px 0 14px 0;">ran successfully. At least one regression test passed.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">Final Architecture After Session</h3>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>config.py
+      ↓
+core.run_scenario()
+      ↓
+process calculations
+      ↓
+economics
+      ↓
+premium calculations
+      ↓
+ScenarioResult
+      ↓
+outputs.py</code></pre>
+          <p style="margin: 8px 0 14px 0;">The key idea is: calculations happen in the core; outputs happen in adapters.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">What Was Most Valuable</h3>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">High Value</h4>
+          <ul style="margin: 0 0 10px 18px;">
+            <li>✔ Restored hydrotreatment premium calculations</li>
+            <li>✔ Eliminated duplicate hydrotreatment computations</li>
+            <li>✔ Added automated regression testing</li>
+            <li>✔ Installed pytest infrastructure</li>
+            <li>✔ Separated outputs from computations</li>
+          </ul>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">Lower Value</h4>
+          <p style="margin: 0 0 14px 0;">The temporary legacy bridge introduced some complexity and was later removed. This was largely transitional work rather than a long-term improvement.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">Recommended Next Steps</h3>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">1. Property-Based Testing</h4>
+          <p style="margin: 0 0 6px 0;">Add tests for:</p>
+          <ul style="margin: 0 0 10px 18px;">
+            <li>mass balance closure</li>
+            <li>recovery fractions between 0 and 1</li>
+            <li>non-negative aromatics</li>
+            <li>non-negative sulfur</li>
+            <li>hydrogen consumption bounds</li>
+          </ul>
+          <p style="margin: 0 0 6px 0;">Examples:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>assert abs(feed - products) &lt; tolerance
+
+assert 0 &lt;= recovery &lt;= 1</code></pre>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">2. Replace Giant Argument Lists</h4>
+          <p style="margin: 0 0 6px 0;">Move from:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>build_dcf_arg_lists_for_hydrotreatment(
+    a,
+    b,
+    c,
+    d,
+    ...
+)</code></pre>
+          <p style="margin: 8px 0 6px 0;">to dataclasses:</p>
+          <pre style="white-space: pre-wrap; background: rgba(15, 23, 42, 0.04); border: 1px solid rgba(15, 23, 42, 0.10); padding: 10px 12px; border-radius: 10px; overflow:auto;"><code>HydrotreatmentDCFInputs(...)</code></pre>
+          <p style="margin: 8px 0 14px 0;"><strong>Benefits:</strong> safer refactoring, easier debugging, better readability.</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">3. Literature Validation</h4>
+          <p style="margin: 0 0 6px 0;">Validate hydrotreatment predictions against published cases:</p>
+          <ul style="margin: 0 0 14px 18px;">
+            <li>aromatics removal</li>
+            <li>sulfur removal</li>
+            <li>hydrogen consumption</li>
+            <li>utility consumption</li>
+          </ul>
+          <p style="margin: 0 0 14px 0;">This provides scientific confidence in the model.</p>
+
+          <h4 style="margin: 10px 0 6px 0; color:#111827; font-size: 14px;">4. Fuel Property Modules</h4>
+          <p style="margin: 0 0 6px 0;">Future modules could include:</p>
+          <ul style="margin: 0 0 14px 18px;">
+            <li>viscosity prediction</li>
+            <li>lubricity prediction</li>
+            <li>seal swell prediction</li>
+            <li>density prediction</li>
+            <li>hydrogen-content prediction</li>
+          </ul>
+          <p style="margin: 0 0 14px 0;">These should be independent model components that plug into the scenario framework.</p>
+
+          <h3 style="margin: 12px 0 6px 0; color:#111827; font-size: 16px;">Overall Assessment</h3>
+          <p style="margin: 0 0 10px 0;">The session successfully transitioned the refinery model toward a cleaner architecture while preserving economic functionality.</p>
+          <p style="margin: 0 0 6px 0;"><strong>The biggest practical gains were:</strong></p>
+          <ol style="margin: 0 0 0 18px;">
+            <li>Restoring premium calculations</li>
+            <li>Eliminating duplicate computations</li>
+            <li>Introducing automated testing</li>
+          </ol>
+          <p style="margin: 8px 0 0 0;">These changes improve confidence that future model development will not accidentally break existing results.</p>
         </div>
       </details>
     </section>
