@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weekly update — Week 5 | Tara Housen</title>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <main class="container" style="max-width: 980px;">
+    <p style="margin-top: 26px;"><a href="../index.html#weekly-updates">← Back to weekly journal</a></p>
+
+    <header style="margin: 16px 0 18px 0;">
+      <h1 style="margin: 0 0 6px 0;">📝 Week 5</h1>
+      <p style="margin: 0; color:#4b5563;">July 7, 2026</p>
+    </header>
+
+    <section style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+      <h2 style="margin: 0 0 10px 0; font-size: 18px;">Updates</h2>
+
+      <p style="margin:10px 0 10px 0; color:#4b5563;">
+        I wanted to run my refinery process cost model with a lot more crude oils because I was only using three in the past.
+        I had also been assuming a US Gulf Coast refinery location, but costs vary depending on plant location.
+      </p>
+
+      <p style="margin:10px 0 10px 0; color:#4b5563;">
+        I used deep research to find sources for refinery data, and found that <strong>GlobalData</strong> has information on refinery locations and capacities (MIT subscribes to it).
+      </p>
+
+      <p style="margin:10px 0 10px 0; color:#4b5563;">
+        Next, I downloaded all available crude assays from BP online (<strong>35 crudes</strong>), and asked ChatGPT to assess which crudes are most likely used at each refinery.
+        It generated this spreadsheet:
+        <a href="../refinery_crude_slate_inference_bp_matches.xlsx">refinery_crude_slate_inference_bp_matches.xlsx</a>.
+      </p>
+
+      <h3 style="margin: 14px 0 8px 0; font-size: 16px;">Crude–refinery matching logic</h3>
+      <ol style="margin: 0; padding-left: 18px; color:#4b5563;">
+        <li>Use refinery type and Nelson Complexity Index to infer crude tolerance.</li>
+        <li>Adjust target API, sulphur, and acidity by region/country/import basin.</li>
+        <li>Rank BP assays using API/sulphur/acidity distance plus a geographic/basin preference.</li>
+      </ol>
+
+      <p style="margin:12px 0 10px 0; color:#4b5563;">
+        Then I used pi to build a new Python script that runs the refinery process cost model across all these refineries.
+        The script outputs a spreadsheet of the main results (cost of treatment) for each refinery:
+        <a href="../all_refineries_top_match_treating_costs 2.numbers">all_refineries_top_match_treating_costs 2.numbers</a>.
+      </p>
+
+      <ul style="margin: 0; padding-left: 18px; color:#4b5563;">
+        <li>Applies plant location factors to account for construction cost differences across locations</li>
+        <li>Uses spatial wind electricity price data</li>
+        <li>Uses an appropriate crude slate for each refinery (from the matching step)</li>
+      </ul>
+
+      <h3 style="margin: 14px 0 8px 0; font-size: 16px;">Maps</h3>
+      <p style="margin:10px 0 0 0; color:#4b5563;">
+        I also generated interactive maps of refinery locations, BP crude assay origins, and the inferred refinery–crude matches:
+        <a href="../global-refineries-and-crudes.html">Global Refineries and Crudes</a>.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
