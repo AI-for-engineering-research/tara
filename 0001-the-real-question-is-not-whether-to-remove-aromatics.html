@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson 0001 — The real question is not whether to remove aromatics</title>
+  <style>
+    :root{--bg:#fcfcfa;--ink:#161616;--muted:#5f5f5f;--line:#d9d4c7;--accent:#165dff;--soft:#eef4ff;--good:#edf9f0;--warn:#fff6e8}
+    body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65, -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    main{max-width:900px;margin:36px auto;padding:0 20px 72px}
+    h1,h2,h3{line-height:1.2} h1{font-size:2.3rem;margin:.2rem 0 1rem} h2{margin-top:2.2rem;padding-top:1rem;border-top:1px solid var(--line)}
+    .eyebrow{display:inline-block;background:var(--soft);color:var(--accent);padding:4px 10px;border-radius:999px;font-weight:700;font-size:.9rem}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0;box-shadow:0 2px 14px rgba(0,0,0,.03)}
+    .prompt{background:var(--warn)} .answer{background:var(--good)} textarea,input{width:100%;box-sizing:border-box;border:1px solid #c8c8c8;border-radius:10px;padding:10px 12px;font:inherit;background:#fff}
+    button{border:0;border-radius:10px;padding:10px 14px;background:var(--accent);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+    .muted{color:var(--muted)} ul,ol{padding-left:1.25rem} code{background:#f3f3ef;padding:.1rem .35rem;border-radius:6px}
+    .small{font-size:.95rem}
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Lesson 0001 · ~15 min</p>
+  <h1>The real question is not <em>whether</em> to remove aromatics</h1>
+  <p><strong>Mission tie-in:</strong> this lesson is built for research meetings. The point is to make your framing sharper than “lower aromatics = better.”</p>
+
+  <div class="card">
+    <h2>Win for this lesson</h2>
+    <p>By the end, you should be able to answer this meeting question cleanly:</p>
+    <p><strong>“What exactly are we optimizing when we lower aromatics in kerosene, and what prevents us from just driving them to zero?”</strong></p>
+  </div>
+
+  <div class="card">
+    <h2>Core idea</h2>
+    <p><strong>Aromatics removal is not the objective. It is a lever.</strong> The objective is to alter the fuel-composition features that most strongly increase soot-particle formation, because those particles can affect contrail-relevant ice nucleation. The lever is limited by fit-for-purpose jet-fuel behavior and by process/system penalties.</p>
+    <p>That sounds obvious, but in meetings people often slide between four different claims:</p>
+    <ol>
+      <li>lower aromatics</li>
+      <li>lower soot</li>
+      <li>lower contrail impact</li>
+      <li>better climate outcome</li>
+    </ol>
+    <p>Those are <strong>not interchangeable claims</strong>. Your edge is to keep them separated.</p>
+  </div>
+
+  <div class="card">
+    <h2>The advanced framing move</h2>
+    <p>Instead of asking:</p>
+    <p><code>How much aromatic removal can we achieve?</code></p>
+    <p>ask:</p>
+    <p><code>Which composition changes buy the largest reduction in soot-relevant behavior per unit penalty in fuel properties, hydrogen, yield, and cost?</code></p>
+    <p>This reframes the work from a purity target to a constrained optimization problem.</p>
+  </div>
+
+  <div class="card">
+    <h2>Pressure-test yourself</h2>
+    <p class="small muted">Write short answers, then reveal the benchmark below.</p>
+    <div class="prompt card">
+      <h3>Prompt A</h3>
+      <p>A collaborator says: “If aromatics drive soot, then the ideal jet fuel is just zero-aromatic kerosene.” What is your 2–3 sentence response?</p>
+      <textarea id="a" rows="5" placeholder="Type your answer..."></textarea>
+    </div>
+    <div class="prompt card">
+      <h3>Prompt B</h3>
+      <p>In one sentence, distinguish <strong>goal</strong>, <strong>mechanism</strong>, and <strong>constraint</strong>.</p>
+      <textarea id="b" rows="4" placeholder="Type your answer..."></textarea>
+    </div>
+    <button onclick="document.getElementById('bench').open=true">Reveal benchmark answers</button>
+    <details id="bench" class="answer card">
+      <summary><strong>Benchmark answers</strong></summary>
+      <p><strong>Prompt A:</strong> Zero aromatics is not automatically optimal because the decision variable is not aromatic content alone but climate-relevant particulate behavior under jet-fuel constraints. Deep aromatic removal can create penalties in materials compatibility and key fuel properties, and the process itself may require more hydrogen, severity, cost, or carbon burden than is justified by the incremental emissions benefit.</p>
+      <p><strong>Prompt B:</strong> The goal is to reduce soot-relevant emissions and thereby potentially reduce contrail climate impact; the mechanism is composition-dependent particle formation behavior; the constraint is that the fuel must still satisfy jet-fuel performance and be producible at acceptable process and system cost.</p>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>Where strong researchers sound stronger</h2>
+    <ul>
+      <li>They say <strong>“soot-relevant aromatic fraction”</strong> or <strong>“composition features”</strong> when total aromatics is too blunt.</li>
+      <li>They say <strong>“can reduce contrail-relevant ice nuclei availability”</strong> instead of promising contrail elimination.</li>
+      <li>They explicitly name the counterweights: <strong>seal swell / elastomer issues, density, process severity, H<sub>2</sub> demand, yield, and cost</strong>.</li>
+      <li>They make clear that the best target may be <strong>selective reduction, blending, or reformulation</strong>, not absolute minimization.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Mini drill: upgrade weak statements</h2>
+    <ol>
+      <li>“Aromatics cause contrails.”</li>
+      <li>“Removing aromatics helps the climate.”</li>
+      <li>“Lower-aromatic kerosene is better fuel.”</li>
+    </ol>
+    <p class="small">Rewrite each one to be technically safer and more precise. If you want, send me your versions and I’ll critique them line by line.</p>
+  </div>
+
+  <div class="card">
+    <h2>Takeaway</h2>
+    <p><strong>The mature framing is:</strong> low-aromatic kerosene is a constrained emissions-control strategy, not a purity project.</p>
+  </div>
+
+  <div class="card">
+    <h2>Next step options</h2>
+    <ul>
+      <li>Go deeper on <strong>which aromatic classes matter most and why total aromatics can mislead</strong></li>
+      <li>Go deeper on <strong>fuel-property / certification constraints that block aggressive aromatic reduction</strong></li>
+      <li>Go deeper on <strong>hydrogen, yield, and refinery-process penalties</strong></li>
+    </ul>
+    <p>Reference: <a href="../reference/0001-meeting-frame-aromatics-removal.html">Meeting frame for low-aromatic kerosene</a></p>
+    <p class="muted">Ask followup questions anytime — I can turn your answer into the next lesson.</p>
+  </div>
+</main>
+</body>
+</html>

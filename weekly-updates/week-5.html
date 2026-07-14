@@ -31,6 +31,8 @@
         Next, I downloaded all available crude assays from BP online (<strong>35 crudes</strong>), and asked ChatGPT to assess which crudes are most likely used at each refinery.
         It generated this spreadsheet:
         <a href="../refinery_crude_slate_inference_bp_matches.xlsx">refinery_crude_slate_inference_bp_matches.xlsx</a>.
+        I also saved the underlying Deep Research PDF here:
+        <a href="../research-updates/global-refineries-and-crudes/Inferred Refinery Crude Slates and BP Assay Matches-2.pdf">Inferred Refinery Crude Slates and BP Assay Matches-2.pdf</a>.
       </p>
 
       <h3 style="margin: 14px 0 8px 0; font-size: 16px;">Crude–refinery matching logic</h3>
@@ -52,11 +54,80 @@
         <li>Uses an appropriate crude slate for each refinery (from the matching step)</li>
       </ul>
 
+      <h3 style="margin: 16px 0 8px 0; font-size: 16px;">Using Backlog to structure the work</h3>
+      <p style="margin:10px 0 12px 0; color:#4b5563;">
+        I used Backlog to break this refinery and crude analysis into a clear task plan.
+        That helped me organize the work as a sequence of smaller steps rather than trying to solve the whole problem at once.
+      </p>
+
+      <div style="margin: 12px 0 14px 0; padding: 16px; border-radius: 14px; border: 1px solid rgba(29,78,216,0.18); background: linear-gradient(180deg, rgba(191,232,255,0.32), rgba(255,255,255,0.9));">
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+          <div style="font-weight:800; color:#1f2937;">Backlog roadmap for refinery–crude analysis</div>
+          <div style="font-size:12px; color:#64748b;">TASK-2 and follow-on tasks</div>
+        </div>
+
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; align-items:start;">
+          <div style="padding:12px; border-radius:12px; background: rgba(255,255,255,0.92); border: 1px solid rgba(29,78,216,0.16); box-shadow: 0 8px 24px rgba(15,23,42,0.04);">
+            <div style="font-size:12px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:#1d4ed8; margin-bottom:8px;">1. Build the data foundation</div>
+            <div style="display:grid; gap:8px; color:#4b5563; font-size:14px;">
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.1 Inventory source datasets + define canonical schemas</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.2 Build normalized BP crude master table</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.3 Build normalized refinery master table</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.4 Derive country crude sourcing profiles</div>
+            </div>
+          </div>
+
+          <div style="padding:12px; border-radius:12px; background: rgba(255,255,255,0.92); border: 1px solid rgba(29,78,216,0.16); box-shadow: 0 8px 24px rgba(15,23,42,0.04);">
+            <div style="font-size:12px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:#1d4ed8; margin-bottom:8px;">2. Build the matching logic</div>
+            <div style="display:grid; gap:8px; color:#4b5563; font-size:14px;">
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.5 Define matching config + capability mappings</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.6 Implement refinery-to-BP crude scoring + ranking engine</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.7 Generate canonical v1 Excel workbook</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.8 Validate matches with targeted spot checks</div>
+            </div>
+          </div>
+
+          <div style="padding:12px; border-radius:12px; background: rgba(255,255,255,0.92); border: 1px solid rgba(29,78,216,0.16); box-shadow: 0 8px 24px rgba(15,23,42,0.04);">
+            <div style="font-size:12px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:#1d4ed8; margin-bottom:8px;">3. Connect to the cost model</div>
+            <div style="display:grid; gap:8px; color:#4b5563; font-size:14px;">
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.9 Integrate top crude matches into the downstream refinery model</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.21 Evaluate all top-3 matches per refinery + average downstream costs</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">Apply location factors, wind electricity prices, and refinery-specific crude slates</div>
+            </div>
+          </div>
+
+          <div style="padding:12px; border-radius:12px; background: rgba(255,255,255,0.92); border: 1px solid rgba(29,78,216,0.16); box-shadow: 0 8px 24px rgba(15,23,42,0.04);">
+            <div style="font-size:12px; font-weight:800; letter-spacing:0.04em; text-transform:uppercase; color:#1d4ed8; margin-bottom:8px;">4. Expand coverage + visualize results</div>
+            <div style="display:grid; gap:8px; color:#4b5563; font-size:14px;">
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.10–2.12 Expand crude coverage and repair sourcing gaps</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.13 Build interactive refinery-to-crude visualization dashboard</div>
+              <div style="padding:8px 10px; border-radius:10px; background: rgba(191,232,255,0.24);">2.14–2.20 Improve trade-data logic and add matched-map sections</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:12px; color:#64748b; font-size:12px;">
+          <span style="padding:6px 10px; border-radius:999px; background: rgba(29,78,216,0.08); border:1px solid rgba(29,78,216,0.16);">data setup</span>
+          <span aria-hidden="true" style="color:#94a3b8; font-size:14px;">→</span>
+          <span style="padding:6px 10px; border-radius:999px; background: rgba(29,78,216,0.08); border:1px solid rgba(29,78,216,0.16);">matching engine</span>
+          <span aria-hidden="true" style="color:#94a3b8; font-size:14px;">→</span>
+          <span style="padding:6px 10px; border-radius:999px; background: rgba(29,78,216,0.08); border:1px solid rgba(29,78,216,0.16);">cost model integration</span>
+          <span aria-hidden="true" style="color:#94a3b8; font-size:14px;">→</span>
+          <span style="padding:6px 10px; border-radius:999px; background: rgba(29,78,216,0.08); border:1px solid rgba(29,78,216,0.16);">maps + dashboard</span>
+        </div>
+      </div>
+
       <h3 style="margin: 14px 0 8px 0; font-size: 16px;">Maps</h3>
-      <p style="margin:10px 0 0 0; color:#4b5563;">
+      <p style="margin:10px 0 10px 0; color:#4b5563;">
         I also generated interactive maps of refinery locations, BP crude assay origins, and the inferred refinery–crude matches:
         <a href="../global-refineries-and-crudes.html">Global Refineries and Crudes</a>.
       </p>
+
+      <p style="margin:10px 0 0 0; color:#4b5563;">
+        This interactive page provides a quick way to visualize where refineries are located, where the BP crude assays come from, and how the refinery–crude matching looks globally.
+        <a href="../global-refineries-and-crudes.html">Open Global Refineries and Crudes</a>.
+      </p>
+
     </section>
   </main>
 </body>
