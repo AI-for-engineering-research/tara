@@ -1,12 +1,16 @@
-
 # macOS
 .DS_Store
 **/.DS_Store
 
-# macOS
-.DS_Store
-**/.DS_Store
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+**/.pytest_cache/
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
 
-# macOS
-.DS_Store
-**/.DS_Store
+# Editor / misc
+*.swp
+*.swo

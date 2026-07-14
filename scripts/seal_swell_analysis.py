@@ -1,3 +1,4 @@
+from pathlib import Path
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plot
@@ -11,7 +12,10 @@ import textwrap
 # Load data
 # =====================================================
 
-df = pd.read_excel("fuel_seal_swell_data.xlsx")
+ROOT = Path(__file__).resolve().parent.parent
+DATA_PATH = ROOT / "data" / "fuel_seal_swell_data.xlsx"
+
+df = pd.read_excel(DATA_PATH)
 
 # Rename these if your spreadsheet uses different column names
 target_col = "O-ring Swell (% v/v)"

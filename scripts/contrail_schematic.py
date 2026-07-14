@@ -1,3 +1,4 @@
+from pathlib import Path
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.patches import FancyBboxPatch, Circle, Wedge, FancyArrowPatch
@@ -281,6 +282,7 @@ ax.text(0.45, 6.05, info_box_text, fontsize=8.5,
 # (No suptitle; website provides context)
 
 plt.tight_layout()
-plt.savefig('contrail_formation.png', dpi=300, bbox_inches='tight', facecolor='white')
-print("✓ Image saved as 'contrail_formation.png'")
+OUTPUT_PATH = Path(__file__).resolve().parent.parent / "assets" / "images" / "contrail_formation.png"
+plt.savefig(OUTPUT_PATH, dpi=300, bbox_inches='tight', facecolor='white')
+print(f"✓ Image saved as '{OUTPUT_PATH}'")
 plt.show()
