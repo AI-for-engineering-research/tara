@@ -16,14 +16,17 @@
     </header>
 
     <section style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
-      <h2 style="margin: 0 0 10px 0; font-size: 18px;">Updates</h2>
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px;">
+        <h2 style="margin: 0; font-size: 18px;">Teach me skill: aromatics project</h2>
+        <p style="margin:0; color:#64748b; font-size:14px;">July 13, 2026</p>
+      </div>
 
       <p style="margin:10px 0 10px 0; color:#4b5563;">
         I tried using the teach me skill and had it teach me my research project: the purpose, benefits, and tradeoffs of low-aromatic jet fuel.
         The conversation is here:
         <a href="../docs/session-exports/pi-session-2026-07-13T21-47-07-112Z_019f5d72-b7e8-70b4-a032-5339d39ce966.html">teach me skill conversation</a>,
         and it produced this lesson:
-        <a href="../docs/lessons/0001-the-real-question-is-not-whether-to-remove-aromatics.html">The real question is not whether to remove aromatics</a>.
+        <a href="../docs/lessons/Aromatics project lesson/0001-the-real-question-is-not-whether-to-remove-aromatics.html">The real question is not whether to remove aromatics</a>.
       </p>
 
       <p style="margin:10px 0 10px 0; color:#4b5563;">
@@ -36,19 +39,22 @@
         I am already very knowledgeable on this topic, so there was not much that this quick lesson could teach me.
         But I was impressed with its understanding of the topic, and I decided to use this skill next on something I knew much less about: how LLMs work.
       </p>
+    </section>
 
-      <p style="margin:10px 0 0 0; color:#4b5563;">
-        In a second session, I used the <code>teach</code> skill to set up an LLM learning workspace and work through the basics of transformers interactively.
+    <section style="margin-top:16px; border:1px solid rgba(22, 93, 255, 0.18); border-radius:12px; padding:14px 16px; background:rgba(238, 244, 255, 0.6);">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:8px;">
+        <h2 style="margin:0; font-size:18px;">Teach skill: learning how LLMs work</h2>
+        <p style="margin:0; color:#64748b; font-size:14px;">July 15, 2026</p>
+      </div>
+      <p style="margin:0 0 10px 0; color:#4b5563;">
+        I then used the <code>teach</code> skill on a topic where I actually needed the scaffolding: LLMs. That session set up a small learning workspace and walked me through next-token prediction, training vs. inference, tokens, embeddings, positional information, attention, and practical LLM use from the underlying mechanism.
+      </p>
+      <p style="margin:0; color:#4b5563;">
         The conversation is here:
         <a href="../docs/session-exports/pi-session-2026-07-14T16-52-30-794Z_019f618b-5bca-7d7d-88f9-132b98b931ec.html">LLM teach skill conversation</a>.
-        That session created a small learning structure and helped me understand next-token prediction, the difference between training and inference, why tokens matter, embeddings, positional information, and attention as a relevance mechanism.
-      </p>
-
-      <p style="margin:10px 0 0 0; color:#4b5563;">
-        By the end, I had a clearer mental model of what an LLM is actually doing at each step, and the next planned lesson was self-attention in more detail: queries, keys, and values.
-        I also saved a handoff summary here:
-        <a href="../docs/lessons/llm-learning-workspace-handoff.md">LLM learning workspace handoff</a>.
-        This felt like a much better use case for the skill because I was learning a topic where I genuinely needed the scaffolding.
+        It also produced a set of lesson files in <code>docs/lessons/LLM lesson</code>, including the opening lesson on next-token prediction, and I saved a handoff summary here:
+        <a href="../docs/lessons/LLM lesson/llm-learning-workspace-handoff.md">LLM learning workspace handoff</a>.
+        By the end, I had a much clearer mental model of what an LLM is actually doing step by step.
       </p>
     </section>
   </main>

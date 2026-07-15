@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson 0002 — Tokens are not words</title>
+  <style>
+    :root{--bg:#fcfcfa;--ink:#161616;--muted:#5f5f5f;--line:#d9d4c7;--accent:#165dff;--soft:#eef4ff;--good:#edf9f0;--warn:#fff6e8}
+    body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    main{max-width:900px;margin:36px auto;padding:0 20px 72px}
+    h1,h2,h3{line-height:1.2} h1{font-size:2.3rem;margin:.2rem 0 1rem} h2{margin-top:2.2rem;padding-top:1rem;border-top:1px solid var(--line)}
+    .eyebrow{display:inline-block;background:var(--soft);color:var(--accent);padding:4px 10px;border-radius:999px;font-weight:700;font-size:.9rem}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0;box-shadow:0 2px 14px rgba(0,0,0,.03)}
+    .prompt{background:var(--warn)} .answer{background:var(--good)} textarea{width:100%;box-sizing:border-box;border:1px solid #c8c8c8;border-radius:10px;padding:10px 12px;font:inherit;background:#fff}
+    button{border:0;border-radius:10px;padding:10px 14px;background:var(--accent);color:#fff;font:inherit;font-weight:700;cursor:pointer}
+    .muted{color:var(--muted)} ul,ol{padding-left:1.25rem} code{background:#f3f3ef;padding:.1rem .35rem;border-radius:6px}
+    .small{font-size:.95rem}
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Lesson 0002 · ~15 min</p>
+  <h1>Tokens are not words</h1>
+  <p><strong>Mission tie-in:</strong> if an LLM predicts the next token, you need a clear idea of what a token is. Tokens are the units the model actually sees, budgets, and generates.</p>
+
+  <div class="card">
+    <h2>Win for this lesson</h2>
+    <p>By the end, you should be able to explain:</p>
+    <p><strong>“What is a token, and why does tokenization matter in practice?”</strong></p>
+  </div>
+
+  <div class="card">
+    <h2>Core idea</h2>
+    <p>A token is a chunk of text used by the model’s tokenizer. It is <strong>not always a word</strong> and <strong>not always a single character</strong>. A token might be a whole word, part of a word, punctuation, whitespace pattern, or a short text fragment.</p>
+  </div>
+
+  <div class="card">
+    <h2>Why this matters</h2>
+    <ul>
+      <li><strong>Context limits:</strong> models have token limits, not word limits.</li>
+      <li><strong>Cost and speed:</strong> API usage is usually priced and bounded in tokens.</li>
+      <li><strong>Behavior:</strong> odd spacing, code, numbers, and rare strings can break into surprising token patterns.</li>
+      <li><strong>Prompt design:</strong> concise, structured prompts often work better partly because they use context more efficiently.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Mental model</h2>
+    <p>Before the model can do next-token prediction, text is turned into tokens. The model processes token IDs, not raw characters or meanings directly.</p>
+    <ol>
+      <li>Text comes in</li>
+      <li>Tokenizer splits it into tokens</li>
+      <li>Tokens become IDs</li>
+      <li>The model predicts the next token ID</li>
+      <li>The token is decoded back into text</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>What this does <em>not</em> mean</h2>
+    <ul>
+      <li>It does <strong>not</strong> mean tokenization is arbitrary noise.</li>
+      <li>It does <strong>not</strong> mean models understand only tiny fragments.</li>
+      <li>It <strong>does</strong> mean the interface between text and model computation has real consequences.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>Pressure-test yourself</h2>
+    <div class="prompt card">
+      <h3>Prompt A</h3>
+      <p>Why is “token” a better unit than “word” when describing how an LLM works?</p>
+      <textarea rows="4" placeholder="Type your answer..."></textarea>
+    </div>
+    <div class="prompt card">
+      <h3>Prompt B</h3>
+      <p>Name two practical consequences of tokenization for someone using an LLM API or writing prompts.</p>
+      <textarea rows="4" placeholder="Type your answer..."></textarea>
+    </div>
+    <button onclick="document.getElementById('bench').open=true">Reveal benchmark answers</button>
+    <details id="bench" class="answer card">
+      <summary><strong>Benchmark answers</strong></summary>
+      <p><strong>Prompt A:</strong> Token is the right unit because the model consumes and generates token sequences, and tokens do not line up cleanly with words. Some words split into multiple tokens, while punctuation or spaces can also matter.</p>
+      <p><strong>Prompt B:</strong> Tokenization affects context-window usage and API cost, and it can also change how reliably the model handles code, formatting, numbers, or unusual strings.</p>
+    </details>
+  </div>
+
+  <div class="card">
+    <h2>Mini drill</h2>
+    <p>Rewrite this weak statement into a safer one:</p>
+    <p><code>The model reads words and writes words.</code></p>
+    <p class="small">Use the terms <strong>tokenizer</strong>, <strong>tokens</strong>, and <strong>context window</strong>.</p>
+  </div>
+
+  <div class="card">
+    <h2>Takeaway</h2>
+    <p><strong>Important correction:</strong> LLMs do not operate directly on words. They operate on tokens, and tokenization shapes context usage, cost, and sometimes behavior.</p>
+  </div>
+
+  <div class="card">
+    <h2>Next step options</h2>
+    <ul>
+      <li>Learn how tokens become vectors with <strong>embeddings</strong></li>
+      <li>Learn the difference between <strong>training</strong> and <strong>inference</strong></li>
+      <li>Learn why transformers need <strong>positional information</strong></li>
+    </ul>
+    <p class="muted">Send me your mini-drill answer and I’ll critique it, then we can move to embeddings.</p>
+  </div>
+</main>
+</body>
+</html>

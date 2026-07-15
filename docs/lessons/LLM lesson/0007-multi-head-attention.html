@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lesson 0007 — Multi-head attention</title>
+  <style>
+    :root{--bg:#fcfcfa;--ink:#161616;--muted:#5f5f5f;--line:#d9d4c7;--accent:#165dff;--soft:#eef4ff}
+    body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+    main{max-width:900px;margin:36px auto;padding:0 20px 72px}
+    h1,h2{line-height:1.2} h1{font-size:2.3rem;margin:.2rem 0 1rem} h2{margin-top:2rem;padding-top:1rem;border-top:1px solid var(--line)}
+    .eyebrow{display:inline-block;background:var(--soft);color:var(--accent);padding:4px 10px;border-radius:999px;font-weight:700;font-size:.9rem}
+    .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 20px;margin:16px 0;box-shadow:0 2px 14px rgba(0,0,0,.03)}
+    code{background:#f3f3ef;padding:.1rem .35rem;border-radius:6px} .muted{color:var(--muted)} ul,ol{padding-left:1.25rem}
+  </style>
+</head>
+<body>
+<main>
+  <p class="eyebrow">Lesson 0007 · ~10 min</p>
+  <h1>Multi-head attention</h1>
+  <p><strong>Core idea:</strong> Multiple heads let the model track different kinds of relevance in parallel.</p>
+
+  <div class="card">
+    <h2>What to remember</h2>
+    <ul><li>One head may focus on local syntax while another tracks long-range references.</li><li>Heads do not need neat human labels to be useful.</li></ul>
+  </div>
+
+  <div class="card">
+    <h2>Why it matters</h2>
+    <p>A single attention pattern is too limiting for language’s many simultaneous relationships.</p>
+  </div>
+
+  <div class="card">
+    <h2>Mental model</h2>
+    <p>Same context, several attention mechanisms, several relevance patterns, then combine their outputs.</p>
+  </div>
+
+  <div class="card">
+    <h2>Checkpoint</h2>
+    <ol><li>Why is one attention head often insufficient?</li><li>What does multi-head attention buy conceptually?</li></ol>
+  </div>
+</main>
+</body>
+</html>

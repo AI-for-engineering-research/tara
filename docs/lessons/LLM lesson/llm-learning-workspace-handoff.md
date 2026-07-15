@@ -72,4 +72,4 @@ From workspace notes and conversation:
 
 ## Export location
 This handoff file is now stored at:
-- `docs/lessons/llm-learning-workspace-handoff.md`
+- `docs/lessons/LLM lesson/llm-learning-workspace-handoff.md`
