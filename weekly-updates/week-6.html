@@ -49,13 +49,65 @@
       <p style="margin:0 0 10px 0; color:#4b5563;">
         I then used the <code>teach</code> skill on a topic where I actually needed the scaffolding: LLMs. That session set up a small learning workspace and walked me through next-token prediction, training vs. inference, tokens, embeddings, positional information, attention, and practical LLM use from the underlying mechanism.
       </p>
-      <p style="margin:0; color:#4b5563;">
+      <p style="margin:0 0 14px 0; color:#4b5563;">
         The conversation is here:
         <a href="../docs/session-exports/pi-session-2026-07-14T16-52-30-794Z_019f618b-5bca-7d7d-88f9-132b98b931ec.html">LLM teach skill conversation</a>.
         It also produced a set of lesson files in <code>docs/lessons/LLM lesson</code>, including the opening lesson on next-token prediction, and I saved a handoff summary here:
         <a href="../docs/lessons/LLM lesson/llm-learning-workspace-handoff.md">LLM learning workspace handoff</a>.
         By the end, I had a much clearer mental model of what an LLM is actually doing step by step.
       </p>
+
+      <h3 style="margin:18px 0 10px 0; font-size:16px; color:#1e3a8a;">LLM lesson map</h3>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px;">
+        <a href="../docs/lessons/LLM lesson/0001-an-llm-is-a-next-token-machine.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">01. Next-token machine</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Explains the basic generation loop: predict a next token, append it, and repeat.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0002-tokens-are-not-words.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">02. Tokens are not words</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Shows that models process chunks of text, not raw words or characters.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0003-embeddings-are-learned-vectors.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">03. Embeddings</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Describes how token IDs become learned vectors the model can compute with.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0004-positional-information-makes-order-matter.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">04. Position matters</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Explains why transformers need position information to understand word order.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0005-attention-is-relevance-weighting.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">05. Attention</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Introduces attention as relevance weighting across the context.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0006-self-attention-queries-keys-values.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">06. Queries, keys, values</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Breaks attention into queries that search, keys that match, and values that carry content.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0007-multi-head-attention.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">07. Multi-head attention</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Shows how multiple attention heads track different relationships in parallel.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0008-layers-residuals-and-mlps.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">08. Layers, residuals, MLPs</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Explains the transformer stack: attention, per-token computation, and residual updates.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0009-training-vs-inference.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">09. Training vs. inference</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Clarifies that training changes weights, while inference uses fixed weights to generate.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0010-logits-softmax-and-sampling.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">10. Logits, softmax, sampling</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Connects model scores to probabilities and decoding choices.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0011-hallucinations-and-grounding.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">11. Hallucinations and grounding</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Explains why plausible false answers happen and how external evidence helps.</p>
+        </a>
+        <a href="../docs/lessons/LLM lesson/0012-practical-llm-use.html" style="display:block; text-decoration:none; color:inherit; border:1px solid rgba(37,99,235,0.22); border-radius:12px; padding:12px; background:#ffffff;">
+          <strong style="color:#1d4ed8;">12. Practical LLM use</strong>
+          <p style="margin:6px 0 0 0; color:#4b5563; font-size:14px;">Turns the mechanism into habits for context, grounding, decoding, and verification.</p>
+        </a>
+      </div>
     </section>
   </main>
 </body>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Weekly update — Week 7 | Tara Housen</title>
+  <link rel="stylesheet" href="../assets/css/styles.css" />
+</head>
+<body>
+  <main class="container" style="max-width: 1040px;">
+    <p style="margin-top: 26px;"><a href="../index.html#weekly-updates">← Back to weekly journal</a></p>
+
+    <header style="margin: 16px 0 18px 0;">
+      <h1 style="margin: 0 0 6px 0;">📝 Week 7</h1>
+      <p style="margin: 0; color:#4b5563;">July 21, 2026</p>
+    </header>
+
+    <section style="border: 1px solid rgba(29, 78, 216, 0.18); border-radius: 12px; padding: 16px; background: rgba(255,255,255,0.72);">
+      <div style="display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:10px;">
+        <h2 style="margin: 0; font-size: 18px;">Using Backlog + pi to rebuild my research repo</h2>
+        <p style="margin:0; color:#64748b; font-size:14px;">July 21, 2026</p>
+      </div>
+
+      <p style="margin:10px 0; color:#4b5563;">
+        This week I have been using Backlog to organize the process of creating a new repository for my low-aromatic fuel research project.
+        My old repo got messed up because I pushed large files to GitHub, so I have been rebuilding the project in a cleaner, more controlled way.
+      </p>
+
+      <p style="margin:10px 0; color:#4b5563;">
+        My workflow has been: first I create a rough draft of a task, then I ask pi to refine the draft and turn it into a clearer Backlog task.
+        If the task still needs more detail, I improve it. Once the task is ready, I ask pi to execute it. After each completed task, I ask pi to keep updating a running summary document:
+        <a href="../low-aromatic-fuel-project/doc-1 - Completed-Tasks-Summary.md"><code>doc-1 - Completed-Tasks-Summary.md</code></a>.
+      </p>
+
+      <p style="margin:10px 0 0 0; color:#4b5563;">
+        This has made the rebuild feel more systematic. Instead of trying to fix everything at once, I can draft, refine, execute, and document each task as a separate step.
+      </p>
+    </section>
+
+    <section style="margin-top:16px; border:1px solid rgba(22, 93, 255, 0.18); border-radius:12px; padding:16px; background:rgba(238, 244, 255, 0.6);">
+      <h2 style="margin:0 0 6px 0; font-size:18px;">Completed task map</h2>
+      <p style="margin:0 0 14px 0; color:#4b5563;">
+        Visual summary generated from the completed-task tracking document.
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:12px;">
+        <div style="border:1px solid rgba(37,99,235,0.22); border-radius:14px; padding:14px; background:#ffffff;">
+          <h3 style="margin:0 0 10px 0; color:#1d4ed8; font-size:16px;">🌎 Cost-benefit / climate LCA</h3>
+          <div style="display:grid; gap:8px;">
+            <div><strong>TASK-1.1</strong><br><span style="color:#4b5563; font-size:14px;">Defined the first climate-only cost-benefit model boundary, inputs, outputs, time horizon, and uncertainty structure.</span></div>
+            <div><strong>TASK-1.11</strong><br><span style="color:#4b5563; font-size:14px;">Added baseline and treated pathway LCA outputs to scenario results, CLI summaries, and batch CSVs.</span></div>
+            <div><strong>TASK-1.12</strong><br><span style="color:#4b5563; font-size:14px;">Applied energy allocation to shared refinery burdens and added solvent-extraction coproduct allocation ranges.</span></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid rgba(37,99,235,0.22); border-radius:14px; padding:14px; background:#ffffff;">
+          <h3 style="margin:0 0 10px 0; color:#1d4ed8; font-size:16px;">📊 Batch runs, workbooks, and plots</h3>
+          <div style="display:grid; gap:8px;">
+            <div><strong>TASK-2</strong><br><span style="color:#4b5563; font-size:14px;">Expanded the batch-analysis workflow and comparison outputs around the scenario matrix.</span></div>
+            <div><strong>TASK-2.1</strong><br><span style="color:#4b5563; font-size:14px;">Built a comprehensive aromatics-removal batch runner across crudes, capacities, pathways, and utility choices.</span></div>
+            <div><strong>TASK-2.2</strong><br><span style="color:#4b5563; font-size:14px;">Added refinery treatment-cost comparison plots.</span></div>
+            <div><strong>TASK-2.3</strong><br><span style="color:#4b5563; font-size:14px;">Created Mars 100k LCA comparison figures and fixed treated-energy and hydrogen-source handling.</span></div>
+            <div><strong>TASK-2.4</strong><br><span style="color:#4b5563; font-size:14px;">Generated one scenario workbook per successful batch run.</span></div>
+            <div><strong>TASK-3</strong><br><span style="color:#4b5563; font-size:14px;">Added Mars 100k treated-vs-baseline cost premium breakdown plots.</span></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid rgba(37,99,235,0.22); border-radius:14px; padding:14px; background:#ffffff;">
+          <h3 style="margin:0 0 10px 0; color:#1d4ed8; font-size:16px;">🛢️ Crude price data</h3>
+          <div style="display:grid; gap:8px;">
+            <div><strong>TASK-4</strong><br><span style="color:#4b5563; font-size:14px;">Completed the global crude-price cleanup workflow.</span></div>
+            <div><strong>TASK-4.1</strong><br><span style="color:#4b5563; font-size:14px;">Inventoried historical crude-price workbooks and mapped available coverage.</span></div>
+            <div><strong>TASK-4.2</strong><br><span style="color:#4b5563; font-size:14px;">Computed 20-year mean prices for available crudes.</span></div>
+            <div><strong>TASK-4.3</strong><br><span style="color:#4b5563; font-size:14px;">Created a consolidated crude-price reference table.</span></div>
+            <div><strong>TASK-4.4</strong><br><span style="color:#4b5563; font-size:14px;">Identified missing price coverage and first-stage proxy assignments using API and sulfur filters.</span></div>
+            <div><strong>TASK-4.6</strong><br><span style="color:#4b5563; font-size:14px;">Researched no-fit crude proxy candidates and found additional external price sources.</span></div>
+            <div><strong>TASK-4.7</strong><br><span style="color:#4b5563; font-size:14px;">Formalized the proxy-selection method and produced final consolidated price outputs.</span></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid rgba(37,99,235,0.22); border-radius:14px; padding:14px; background:#ffffff;">
+          <h3 style="margin:0 0 10px 0; color:#1d4ed8; font-size:16px;">🏭 Refinery model + reporting</h3>
+          <div style="display:grid; gap:8px;">
+            <div><strong>TASK-6</strong><br><span style="color:#4b5563; font-size:14px;">Expanded Excel LCA and utility reporting for scenario workbooks.</span></div>
+            <div><strong>TASK-7</strong><br><span style="color:#4b5563; font-size:14px;">Aligned vacuum distillation utility scaling with vacuum-unit throughput.</span></div>
+            <div><strong>TASK-8</strong><br><span style="color:#4b5563; font-size:14px;">Added steam and cooling-water system costs to workbook equipment sheets.</span></div>
+            <div><strong>TASK-9</strong><br><span style="color:#4b5563; font-size:14px;">Fixed the wind MSP plotting script, added regression coverage, and regenerated plots.</span></div>
+            <div><strong>TASK-10</strong><br><span style="color:#4b5563; font-size:14px;">Standardized upstream crude LCA on extraction plus crude transportation.</span></div>
+            <div><strong>TASK-11</strong><br><span style="color:#4b5563; font-size:14px;">Added detailed LCA waterfall plots by life-cycle stage and unit utilities.</span></div>
+            <div><strong>TASK-12</strong><br><span style="color:#4b5563; font-size:14px;">Created an API-sulfur proxy-arrow crude plot for visual QA of price proxies.</span></div>
+            <div><strong>TASK-13</strong><br><span style="color:#4b5563; font-size:14px;">Added Mars 100k equipment cost breakdown bar graphs.</span></div>
+            <div><strong>TASK-14</strong><br><span style="color:#4b5563; font-size:14px;">Exposed detailed hydrotreatment equipment cost components in saved outputs.</span></div>
+            <div><strong>TASK-15</strong><br><span style="color:#4b5563; font-size:14px;">Added annual operating-cost breakdown plots by configuration.</span></div>
+            <div><strong>TASK-16</strong><br><span style="color:#4b5563; font-size:14px;">Added annual utilities-cost breakdown plots using saved workbook utility sheets.</span></div>
+            <div><strong>TASK-17</strong><br><span style="color:#4b5563; font-size:14px;">Created kerosene property-change figures across treatment pathways.</span></div>
+            <div><strong>TASK-18</strong><br><span style="color:#4b5563; font-size:14px;">Plotted global crude prices against API gravity, sulfur, and region.</span></div>
+            <div><strong>TASK-19</strong><br><span style="color:#4b5563; font-size:14px;">Estimated fuel seal swell changes from aromatic content.</span></div>
+            <div><strong>TASK-20</strong><br><span style="color:#4b5563; font-size:14px;">Mapped weighted-average refinery premium by country.</span></div>
+            <div><strong>TASK-21</strong><br><span style="color:#4b5563; font-size:14px;">Added local premium sensitivity analysis with tornado and spider plots.</span></div>
+            <div><strong>TASK-22</strong><br><span style="color:#4b5563; font-size:14px;">Wired actual distillation cooling water into SR DCFROR inputs and refreshed outputs.</span></div>
+          </div>
+        </div>
+
+        <div style="border:1px solid rgba(37,99,235,0.22); border-radius:14px; padding:14px; background:#ffffff;">
+          <h3 style="margin:0 0 10px 0; color:#1d4ed8; font-size:16px;">🔍 Manual checking against old repo</h3>
+          <div style="display:grid; gap:8px; color:#4b5563; font-size:14px;">
+            <div>Compared regenerated scenario workbooks against the old Aromatics-project workbooks to diagnose cost differences.</div>
+            <div>Found missing steam-system and cooling-water-system equipment costs in the old run.</div>
+            <div>Updated crude price data for a more accurate economics basis.</div>
+            <div>Corrected vacuum-distillation energy scaling to use vacuum throughput instead of total crude throughput.</div>
+            <div>Identified a likely BTX price-direction issue in the legacy solvent-extraction DCF logic.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
